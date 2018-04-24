@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">MyTeam</string>
+    <string name="username">blui</string>
+    <string name="password">gdorf151</string>
+    <string name="open_drawer">Open drawer</string>
+    <string name="close_drawer">Close drawer</string>
+    <string name="bucks_name">MIL</string>
+    <string name="bulls_name">CHI</string>
+    <string name="cavaliers_name">CLE</string>
+    <string name="celtics_name">BOS</string>
+    <string name="clippers_name">LAC</string>
+    <string name="grizzlies_name">MEM</string>
+    <string name="hawks_name">ATL</string>
+    <string name="heat_name">MIA</string>
+    <string name="hornets_name">CHA</string>
+    <string name="jazz_name">UTA</string>
+    <string name="kings_name">SAC</string>
+    <string name="knicks_name">NYK</string>
+    <string name="lakers_name">LAL</string>
+    <string name="magic_name">ORL</string>
+    <string name="mavericks_name">DAL</string>
+    <string name="nets_name">BRO</string>
+    <string name="nuggets_name">DEN</string>
+    <string name="pacers_name">IND</string>
+    <string name="pelicans_name">NOP</string>
+    <string name="pistons_name">DET</string>
+    <string name="raptor_name">TOR</string>
+    <string name="rockets_name">HOU</string>
+    <string name="sixers_name">PHI</string>
+    <string name="spurs_name">SAS</string>
+    <string name="suns_name">PHX</string>
+    <string name="thunder_name">OKL</string>
+    <string name="trailbalzer_name">POR</string>
+    <string name="timberwolves_name">MIN</string>
+    <string name="warriors_name">GSW</string>
+    <string name="wizards_name">WAS</string>
+</resources>

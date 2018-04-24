@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="hawksID">1610612737</integer>
+    <integer name="celticsID">1610612738</integer>
+    <integer name="netsID">1610612751</integer>
+    <integer name="hornetsID">1610612766</integer>
+    <integer name="bullsID">1610612741</integer>
+    <integer name="cavaliersID">1610612739</integer>
+    <integer name="mavericksID">1610612742</integer>
+    <integer name="nuggetsID">1610612743</integer>
+    <integer name="pistonsID">1610612765</integer>
+    <integer name="warriorsID">1610612744</integer>
+    <integer name="rocketsID">1610612745</integer>
+    <integer name="pacersID">1610612754</integer>
+    <integer name="clippersID">1610612746</integer>
+    <integer name="lakersID">1610612747</integer>
+    <integer name="grizzliesID">1610612763</integer>
+    <integer name="heatID">1610612748</integer>
+    <integer name="bucksID">1610612749</integer>
+    <integer name="timberwolvesID">1610612750</integer>
+    <integer name="pelicansID">1610612740</integer>
+    <integer name="knicksID">1610612752</integer>
+    <integer name="thunderID">1610612760</integer>
+    <integer name="magicID">1610612753</integer>
+    <integer name="sixersID">1610612755</integer>
+    <integer name="sunsID">1610612756</integer>
+    <integer name="trailblazersID">1610612757</integer>
+    <integer name="kingsID">1610612758</integer>
+    <integer name="spursID">1610612759</integer>
+    <integer name="raptorsID">1610612761</integer>
+    <integer name="jazzID">1610612762</integer>
+    <integer name="wizardsID">1610612764</integer>
+</resources>

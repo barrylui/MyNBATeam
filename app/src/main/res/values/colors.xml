@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorBucksPrimary">#004A1A</color>
+    <color name="colorBullsPrimary">#C91542</color>
+    <color name="colorCavaliersPrimary">#6F263D</color>
+    <color name="colorCelticsPrimary">#047F49</color>
+    <color name="colorClippersPrimary">#CE2A46</color>
+    <color name="colorGrizzliesPrimary">#658ABF</color>
+    <color name="colorHawksPrimary">#DE3B3E</color>
+    <color name="colorHeatPrimary">#9C002F</color>
+    <color name="colorHornetsPrimary">#0B7797</color>
+    <color name="colorJazzPrimary">#0D2240</color>
+    <color name="colorKingsPrimary">#5B2B82</color>
+    <color name="colorKnicksPrimary">#FF671B</color>
+    <color name="colorLakersPrimary">#FDB927</color>
+    <color name="colorMagicPrimary">#0B77BD</color>
+    <color name="colorMavericksPrimary">#007DC5</color>
+    <color name="colorNetsPrimary">#000000</color>
+    <color name="colorNuggetsPrimary">#5091CD</color>
+    <color name="colorPacersPrimary">#FDBB30</color>
+    <color name="colorPelicansPrimary">#012A5C</color>
+    <color name="colorPistonsPrimary">#006AB6</color>
+    <color name="colorRaptorsPrimary">#CD1141</color>
+    <color name="colorRocketsPrimary">#CE1141</color>
+    <color name="colorSixersPrimary">#006BB6</color>
+    <color name="colorSpursPrimary">#000000</color>
+    <color name="colorSunsPrimary">#E66F1F</color>
+    <color name="colorThunderPrimary">#08679F</color>
+    <color name="colorTrailblazersPrimary">#D12437</color>
+    <color name="colorTimberwolvesPrimary">#0D2240</color>
+    <color name="colorWarriorsPrimary">#FFC627</color>
+    <color name="colorWizardsPrimary">#CF0A2C</color>
+
+
+
+</resources>
