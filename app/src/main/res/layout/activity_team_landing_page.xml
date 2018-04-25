@@ -80,6 +80,43 @@
             android:layout_centerHorizontal="true"
             android:layout_below="@id/dash"
             />
+
+        <TextView
+            android:id="@+id/ppgtextview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dash"
+            android:layout_centerHorizontal="true" />
+        <TextView
+            android:id="@+id/oppgtextview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ppgtextview"
+            android:layout_centerHorizontal="true" />
+        <TextView
+            android:id="@+id/apgtextview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/oppgtextview"
+            android:layout_centerHorizontal="true" />
+        <TextView
+            android:id="@+id/rpgtextview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/apgtextview"
+            android:layout_centerHorizontal="true" />
+        <TextView
+            android:id="@+id/textview3pa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rpgtextview"
+            android:layout_centerHorizontal="true" />
+        <TextView
+            android:id="@+id/textview3pp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textview3pa"
+            android:layout_centerHorizontal="true" />
     </RelativeLayout>
     <android.support.design.widget.NavigationView
         android:id="@+id/navigation_view"

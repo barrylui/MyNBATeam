@@ -16,6 +16,8 @@ import android.widget.TextView;
 import android.support.design.widget.NavigationView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
+
 import barrylui.myteam.BasicAuthInterceptor;
 import barrylui.myteam.ConferenceTeamStandingsModel.Standings;
 import barrylui.myteam.GameLog;
@@ -34,21 +36,14 @@ public class TeamLandingPage extends AppCompatActivity implements NavigationView
 
     DrawerLayout drawerLayout;
     private static final String TAG = "TeamLandingPage";
-    private static final String BASE_URL = "http://data.nba.net/10s/prod/v1/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_team_landing_page);
 
-
-        String BASE_URL = "https://api.mysportsfeeds.com/v1.2/pull/nba/2017-2018-regular/";
-        String Season = "2017-18";
-        String LeagueID = "00";
-        String SeasonType = "Regular%20Season&";
-
         int teamid = getIntent().getIntExtra("TeamID",0);
         int teamlogo = getIntent().getIntExtra("TeamLogo",0);
-        int teamcolors = getIntent().getIntExtra("TeamColors",0);
+        final int teamcolors = getIntent().getIntExtra("TeamColors",0);
         String teamName = getIntent().getStringExtra("TeamName");
         final int teamConference = getIntent().getIntExtra("TeamConference", -1);
 
@@ -59,12 +54,18 @@ public class TeamLandingPage extends AppCompatActivity implements NavigationView
         final TextView franchiseName = (TextView)findViewById(R.id.franchiseName);
 
 
-        final TextView wins = (TextView)findViewById(R.id.numWins);
-        final TextView loses = (TextView)findViewById(R.id.numLoses);
-        final TextView dash = (TextView) findViewById(R.id.dash);
-        wins.setTextColor(getResources().getColor(teamcolors));
-        loses.setTextColor(getResources().getColor(teamcolors));
-        dash.setTextColor(getResources().getColor(teamcolors));
+        final TextView winstv = (TextView)findViewById(R.id.numWins);
+        final TextView losestv = (TextView)findViewById(R.id.numLoses);
+        final TextView dashtv = (TextView) findViewById(R.id.dash);
+        final TextView ppgtv = (TextView)findViewById(R.id.ppgtextview);
+        final TextView oppgtv = (TextView)findViewById(R.id.oppgtextview);
+        final TextView apgtv = (TextView)findViewById(R.id.apgtextview);
+        final TextView rpgtv = (TextView)findViewById(R.id.rpgtextview);
+        final TextView tpatv = (TextView)findViewById(R.id.textview3pa);
+        final TextView tpptv = (TextView)findViewById(R.id.textview3pp);
+        winstv.setTextColor(getResources().getColor(teamcolors));
+        losestv.setTextColor(getResources().getColor(teamcolors));
+        dashtv.setTextColor(getResources().getColor(teamcolors));
 
         ImageView iv = (ImageView)findViewById(R.id.teamlogo);
         iv.setImageResource(teamlogo);
@@ -78,14 +79,16 @@ public class TeamLandingPage extends AppCompatActivity implements NavigationView
                     .addInterceptor(new BasicAuthInterceptor(getString(R.string.username), getString(R.string.password)))
                     .build();
 
+            String BASE_URL = "https://api.mysportsfeeds.com/v1.2/pull/nba/2017-2018-regular/";
+
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .client(client)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 
-            String teamstatsparams = "W,L,PTS/G,AST/G,REB/G,3PA/G,3PM/G,PTS/G,PTSA/G";
             SportsFeedAPI sportsFeedAPI = retrofit.create(SportsFeedAPI.class);
+            String teamstatsparams = "W,L,PTS/G,AST/G,REB/G,3PA/G,3PM/G,PTS/G,PTSA/G";
             Call<Standings> call = sportsFeedAPI.getStandings(teamstatsparams, teamName);
 
             call.enqueue(new Callback<Standings>() {
@@ -93,15 +96,44 @@ public class TeamLandingPage extends AppCompatActivity implements NavigationView
                 public void onResponse(Call<Standings> call, Response<Standings> response) {
                     Log.d(TAG, "onResponse: Server Response: " + response.toString());
 
-                    String city = response.body().getConferenceteamstandings().getConference().get(teamConference).getTeamentry().get(0).getTeam().getCity();
-                    String name = response.body().getConferenceteamstandings().getConference().get(teamConference).getTeamentry().get(0).getTeam().getName();
-                    franchiseName.setText(city + " " + name);
 
-                    String numberOfWins = response.body().getConferenceteamstandings().getConference().get(teamConference).getTeamentry().get(0).getStats().getWins().getText();
-                    wins.setText(numberOfWins);
+                    if(response.code()==200){
+                        String city = response.body().getConferenceteamstandings().getConference().get(teamConference).getTeamentry().get(0).getTeam().getCity();
+                        String name = response.body().getConferenceteamstandings().getConference().get(teamConference).getTeamentry().get(0).getTeam().getName();
+                        franchiseName.setText(city + " " + name);
 
-                    String numberOfLoses = response.body().getConferenceteamstandings().getConference().get(teamConference).getTeamentry().get(0).getStats().getLosses().getText();
-                    loses.setText(numberOfLoses);
+                        String numberOfWins = response.body().getConferenceteamstandings().getConference().get(teamConference).getTeamentry().get(0).getStats().getWins().getText();
+                        winstv.setText(numberOfWins);
+
+                        String numberOfLoses = response.body().getConferenceteamstandings().getConference().get(teamConference).getTeamentry().get(0).getStats().getLosses().getText();
+                        losestv.setText(numberOfLoses);
+
+                        String teamppg = response.body().getConferenceteamstandings().getConference().get(teamConference).getTeamentry().get(0).getStats().getPtsPerGame().get(0).getText();
+                        ppgtv.setText(teamppg + " Points Per Game");
+
+                        String oPPG = response.body().getConferenceteamstandings().getConference().get(teamConference).getTeamentry().get(0).getStats().getPtsAgainstPerGame().getText();
+                        oppgtv.setText(oPPG + " Opponents PPG");
+
+                        String apg = response.body().getConferenceteamstandings().getConference().get(teamConference).getTeamentry().get(0).getStats().getAstPerGame().getText();
+                        apgtv.setText(apg + " Assists Per Game");
+
+                        String rpg = response.body().getConferenceteamstandings().getConference().get(teamConference).getTeamentry().get(0).getStats().getRebPerGame().getText();
+                        rpgtv.setText(rpg + " Rebounds Per Game" );
+
+                        String tpa = response.body().getConferenceteamstandings().getConference().get(teamConference).getTeamentry().get(0).getStats().getFg3PtAttPerGame().getText();
+                        tpatv.setText(tpa + " 3Pt Attempts Per Game");
+
+                        double threepointatt = Double.parseDouble(tpa);
+                        double threepointmade = Double.parseDouble(response.body().getConferenceteamstandings().getConference().get(teamConference).getTeamentry().get(0).getStats().getFg3PtMadePerGame().getText());
+                        double threepercentage = threepointmade/threepointatt;
+                        DecimalFormat form = new DecimalFormat(".000");
+                        tpptv.setText(form.format(threepercentage) + " 3Pt Percentage");
+                        Log.d(TAG, "3PA " + threepointatt + " 3PM " + threepointmade + " 3PT% " + threepercentage);
+                    }
+                    else{
+                        Log.d(TAG, "onResponse: Server Response " + response.toString());
+                        Toast.makeText(TeamLandingPage.this, "Error " + response.toString(), Toast.LENGTH_LONG).show();
+                    }
                 }
 
                 @Override
@@ -135,6 +167,9 @@ public class TeamLandingPage extends AppCompatActivity implements NavigationView
         actionBarDrawerToggle.syncState();
     }
 
+    public void bindTeamStatsData(){
+
+    }
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
