@@ -88,6 +88,7 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v){
         int id=0;
         Intent teamPage = new Intent(this, TeamLandingPage.class);
+        teamPage.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         ActivityOptions options;
         switch(v.getId()){
             case R.id.bucksbutton:
@@ -100,6 +101,7 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
+                finish();
                 break;
             case R.id.bullsbutton:
                 id = R.integer.bullsID;
@@ -111,6 +113,7 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
+                finish();
                 break;
             case R.id.cavsbutton:
                 id = R.integer.cavaliersID;
@@ -122,17 +125,19 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
+                finish();
                 break;
             case R.id.celticsbutton:
                 id = R.integer.celticsID;
                 teamPage.putExtra("TeamID",id);
-                teamPage.putExtra("TeamName", getString(R.string.bucks_name));
+                teamPage.putExtra("TeamName", getString(R.string.celtics_name));
                 teamPage.putExtra("TeamLogo", R.drawable.ic_celticslogo);
                 teamPage.putExtra("TeamConference",0);
                 teamPage.putExtra("TeamColors", R.color.colorCelticsPrimary);
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
+                finish();
                 break;
             case R.id.clippersbutton:
                 id = R.integer.clippersID;
@@ -144,6 +149,7 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
+                finish();
                 break;
             case R.id.grizzliesbutton:
                 id = R.integer.grizzliesID;
@@ -155,6 +161,7 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
+                finish();
                 break;
             case R.id.hawksbutton:
                 id = R.integer.hawksID;
@@ -166,6 +173,7 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
+                finish();
                 break;
             case R.id.heatbutton:
                 id = R.integer.heatID;
@@ -177,6 +185,7 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
+                finish();
                 break;
             case R.id.hornetsbutton:
                 id = R.integer.hornetsID;
@@ -188,6 +197,7 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
+                finish();
                 break;
             case R.id.jazzbutton:
                 id = R.integer.jazzID;
@@ -199,6 +209,7 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
+                finish();
                 break;
             case R.id.kingsbutton:
                 id = R.integer.kingsID;
@@ -210,6 +221,7 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
+                finish();
                 break;
             case R.id.knicksbutton:
                 id = R.integer.knicksID;
@@ -222,6 +234,7 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
+                finish();
                 break;
             case R.id.lakersbutton:
                 id = R.integer.lakersID;
@@ -233,6 +246,7 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
+                finish();
                 break;
             case R.id.magicbutton:
                 id = R.integer.magicID;
@@ -244,6 +258,7 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
+                finish();
                 break;
             case R.id.mavsbutton:
                 id = R.integer.mavericksID;
@@ -255,6 +270,7 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
+                finish();
                 break;
             case R.id.netsbutton:
                 id = R.integer.netsID;
@@ -266,6 +282,7 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
+                finish();
                 break;
             case R.id.nuggetsbutton:
                 id = R.integer.nuggetsID;
@@ -277,6 +294,7 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
+                finish();
                 break;
             case R.id.pacersbutton:
                 id = R.integer.pacersID;
@@ -288,6 +306,7 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
+                finish();
                 break;
             case R.id.pelicansbutton:
                 id = R.integer.pelicansID;
@@ -299,6 +318,7 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
+                finish();
                 break;
             case R.id.pistonbutton:
                 id = R.integer.pistonsID;
@@ -310,6 +330,7 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
+                finish();
                 break;
             case R.id.raptorsbutton:
                 id = R.integer.raptorsID;
@@ -321,6 +342,7 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
+                finish();
                 break;
             case R.id.rocketsbutton:
                 id = R.integer.rocketsID;
@@ -332,6 +354,7 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
+                finish();
                 break;
             case R.id.sixersbutton:
                 id = R.integer.sixersID;
@@ -343,6 +366,7 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
+                finish();
                 break;
             case R.id.spursbutton:
                 id = R.integer.spursID;
@@ -354,6 +378,7 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
+                finish();
                 break;
             case R.id.sunsbutton:
                 id = R.integer.sunsID;
@@ -365,6 +390,7 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
+                finish();
                 break;
             case R.id.thunderbutton:
                 id = R.integer.thunderID;
@@ -376,6 +402,7 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
+                finish();
                 break;
             case R.id.trailblazersbutton:
                 id = R.integer.trailblazersID;
@@ -387,6 +414,7 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
+                finish();
                 break;
             case R.id.timberwolvesbutton:
                 id = R.integer.timberwolvesID;
@@ -398,6 +426,7 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
+                finish();
                 break;
             case R.id.warriorsbutton:
                 id = R.integer.warriorsID;
@@ -409,6 +438,7 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
+                finish();
                 break;
             case R.id.wizardsbutton:
                 id = R.integer.wizardsID;
@@ -420,8 +450,10 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
+                finish();
                 break;
             default:
+                finish();
                 break;
         }
     }

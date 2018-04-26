@@ -1,6 +1,7 @@
 package barrylui.myteam;
 
 import barrylui.myteam.ConferenceTeamStandingsModel.Standings;
+import barrylui.myteam.RankingsModel.Rankings;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -20,4 +21,9 @@ public interface SportsFeedAPI {
     Call<Standings> getStandings(
             @Query("teamstats") String param1,
             @Query("team") String param2);
+
+    @Headers("Content-type: application/json")
+    @GET("conference_team_standings.json?")
+    Call<Rankings> getStatsRank(
+            @Query("teamstats") String param1);
 }

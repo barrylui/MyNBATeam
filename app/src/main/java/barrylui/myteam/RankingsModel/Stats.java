@@ -1,6 +1,6 @@
-package barrylui.myteam.ConferenceTeamStandingsModel;
+package barrylui.myteam.RankingsModel;
 
-import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -9,9 +9,6 @@ public class Stats {
     @SerializedName("GamesPlayed")
     @Expose
     private GamesPlayed gamesPlayed;
-    @SerializedName("Fg3PtAttPerGame")
-    @Expose
-    private Fg3PtAttPerGame fg3PtAttPerGame;
     @SerializedName("Fg3PtMadePerGame")
     @Expose
     private Fg3PtMadePerGame fg3PtMadePerGame;
@@ -23,16 +20,10 @@ public class Stats {
     private AstPerGame astPerGame;
     @SerializedName("PtsPerGame")
     @Expose
-    private List<PtsPerGame> ptsPerGame = null;
+    private PtsPerGame ptsPerGame;
     @SerializedName("PtsAgainstPerGame")
     @Expose
     private PtsAgainstPerGame ptsAgainstPerGame;
-    @SerializedName("Wins")
-    @Expose
-    private Wins wins;
-    @SerializedName("Losses")
-    @Expose
-    private Losses losses;
 
     public GamesPlayed getGamesPlayed() {
         return gamesPlayed;
@@ -40,14 +31,6 @@ public class Stats {
 
     public void setGamesPlayed(GamesPlayed gamesPlayed) {
         this.gamesPlayed = gamesPlayed;
-    }
-
-    public Fg3PtAttPerGame getFg3PtAttPerGame() {
-        return fg3PtAttPerGame;
-    }
-
-    public void setFg3PtAttPerGame(Fg3PtAttPerGame fg3PtAttPerGame) {
-        this.fg3PtAttPerGame = fg3PtAttPerGame;
     }
 
     public Fg3PtMadePerGame getFg3PtMadePerGame() {
@@ -74,13 +57,11 @@ public class Stats {
         this.astPerGame = astPerGame;
     }
 
-    //public PtsPerGame getPtsPerGameSingle(){return ptsPerGameSingle;}
-
-    public List<PtsPerGame> getPtsPerGame() {
+    public PtsPerGame getPtsPerGame() {
         return ptsPerGame;
     }
 
-    public void setPtsPerGame(List<PtsPerGame> ptsPerGame) {
+    public void setPtsPerGame(PtsPerGame ptsPerGame) {
         this.ptsPerGame = ptsPerGame;
     }
 
@@ -90,22 +71,6 @@ public class Stats {
 
     public void setPtsAgainstPerGame(PtsAgainstPerGame ptsAgainstPerGame) {
         this.ptsAgainstPerGame = ptsAgainstPerGame;
-    }
-
-    public Wins getWins() {
-        return wins;
-    }
-
-    public void setWins(Wins wins) {
-        this.wins = wins;
-    }
-
-    public Losses getLosses() {
-        return losses;
-    }
-
-    public void setLosses(Losses losses) {
-        this.losses = losses;
     }
 
 }
