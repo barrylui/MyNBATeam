@@ -88,7 +88,6 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v){
         int id=0;
         Intent teamPage = new Intent(this, TeamLandingPage.class);
-        teamPage.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         ActivityOptions options;
         switch(v.getId()){
             case R.id.bucksbutton:
@@ -98,10 +97,10 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 teamPage.putExtra("TeamLogo", R.drawable.ic_buckslogo);
                 teamPage.putExtra("TeamConference",0);
                 teamPage.putExtra("TeamColors", R.color.colorBucksPrimary);
+                teamPage.putExtra("PtsInPaintRank", 7);
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
-                finish();
                 break;
             case R.id.bullsbutton:
                 id = R.integer.bullsID;
@@ -110,10 +109,10 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 teamPage.putExtra("TeamLogo", R.drawable.ic_bullslogo);
                 teamPage.putExtra("TeamConference",0);
                 teamPage.putExtra("TeamColors", R.color.colorBullsPrimary);
+                teamPage.putExtra("PtsInPaintRank", 26);
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
-                finish();
                 break;
             case R.id.cavsbutton:
                 id = R.integer.cavaliersID;
@@ -122,10 +121,10 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 teamPage.putExtra("TeamLogo", R.drawable.ic_cavslogo);
                 teamPage.putExtra("TeamConference",0);
                 teamPage.putExtra("TeamColors", R.color.colorCavaliersPrimary);
+                teamPage.putExtra("PtsInPaintRank", 17);
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
-                finish();
                 break;
             case R.id.celticsbutton:
                 id = R.integer.celticsID;
@@ -134,10 +133,10 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 teamPage.putExtra("TeamLogo", R.drawable.ic_celticslogo);
                 teamPage.putExtra("TeamConference",0);
                 teamPage.putExtra("TeamColors", R.color.colorCelticsPrimary);
+                teamPage.putExtra("PtsInPaintRank", 29);
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
-                finish();
                 break;
             case R.id.clippersbutton:
                 id = R.integer.clippersID;
@@ -146,10 +145,10 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 teamPage.putExtra("TeamLogo", R.drawable.ic_clipperlogo);
                 teamPage.putExtra("TeamConference",1);
                 teamPage.putExtra("TeamColors", R.color.colorClippersPrimary);
+                teamPage.putExtra("PtsInPaintRank", 2);
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
-                finish();
                 break;
             case R.id.grizzliesbutton:
                 id = R.integer.grizzliesID;
@@ -158,10 +157,10 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 teamPage.putExtra("TeamLogo", R.drawable.ic_grizzlies);
                 teamPage.putExtra("TeamConference",1);
                 teamPage.putExtra("TeamColors", R.color.colorGrizzliesPrimary);
+                teamPage.putExtra("PtsInPaintRank", 25);
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
-                finish();
                 break;
             case R.id.hawksbutton:
                 id = R.integer.hawksID;
@@ -170,10 +169,10 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 teamPage.putExtra("TeamLogo", R.drawable.ic_hawkslogo);
                 teamPage.putExtra("TeamConference",0);
                 teamPage.putExtra("TeamColors", R.color.colorHawksPrimary);
+                teamPage.putExtra("PtsInPaintRank", 27);
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
-                finish();
                 break;
             case R.id.heatbutton:
                 id = R.integer.heatID;
@@ -182,10 +181,10 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 teamPage.putExtra("TeamLogo", R.drawable.ic_heatlogo);
                 teamPage.putExtra("TeamConference",0);
                 teamPage.putExtra("TeamColors", R.color.colorHeatPrimary);
+                teamPage.putExtra("PtsInPaintRank", 13);
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
-                finish();
                 break;
             case R.id.hornetsbutton:
                 id = R.integer.hornetsID;
@@ -194,10 +193,10 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 teamPage.putExtra("TeamLogo", R.drawable.ic_hornetslogo);
                 teamPage.putExtra("TeamConference",0);
                 teamPage.putExtra("TeamColors", R.color.colorHornetsPrimary);
+                teamPage.putExtra("PtsInPaintRank", 16);
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
-                finish();
                 break;
             case R.id.jazzbutton:
                 id = R.integer.jazzID;
@@ -206,10 +205,10 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 teamPage.putExtra("TeamLogo", R.drawable.ic_jazzlogo);
                 teamPage.putExtra("TeamConference",1);
                 teamPage.putExtra("TeamColors", R.color.colorJazzPrimary);
+                teamPage.putExtra("PtsInPaintRank", 14);
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
-                finish();
                 break;
             case R.id.kingsbutton:
                 id = R.integer.kingsID;
@@ -218,10 +217,11 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 teamPage.putExtra("TeamLogo", R.drawable.ic_kingslogo);
                 teamPage.putExtra("TeamConference",1);
                 teamPage.putExtra("TeamColors", R.color.colorKingsPrimary);
+                teamPage.putExtra("PtsInPaintRank", 21);
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
-                finish();
+
                 break;
             case R.id.knicksbutton:
                 id = R.integer.knicksID;
@@ -231,10 +231,10 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 teamPage.putExtra("TeamName", getString(R.string.knicks_name));
                 teamPage.putExtra("TeamConference",0);
                 teamPage.putExtra("TeamColors", R.color.colorKnicksPrimary);
+                teamPage.putExtra("PtsInPaintRank", 9);
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
-                finish();
                 break;
             case R.id.lakersbutton:
                 id = R.integer.lakersID;
@@ -243,10 +243,10 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 teamPage.putExtra("TeamLogo", R.drawable.ic_lakerslogo);
                 teamPage.putExtra("TeamConference",1);
                 teamPage.putExtra("TeamColors", R.color.colorLakersPrimary);
+                teamPage.putExtra("PtsInPaintRank", 3);
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
-                finish();
                 break;
             case R.id.magicbutton:
                 id = R.integer.magicID;
@@ -255,10 +255,10 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 teamPage.putExtra("TeamLogo", R.drawable.ic_magiclogo);
                 teamPage.putExtra("TeamConference",0);
                 teamPage.putExtra("TeamColors", R.color.colorMagicPrimary);
+                teamPage.putExtra("PtsInPaintRank", 11);
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
-                finish();
                 break;
             case R.id.mavsbutton:
                 id = R.integer.mavericksID;
@@ -267,10 +267,10 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 teamPage.putExtra("TeamLogo", R.drawable.mavslogo);
                 teamPage.putExtra("TeamConference",1);
                 teamPage.putExtra("TeamColors", R.color.colorMavericksPrimary);
+                teamPage.putExtra("PtsInPaintRank", 30);
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
-                finish();
                 break;
             case R.id.netsbutton:
                 id = R.integer.netsID;
@@ -279,10 +279,10 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 teamPage.putExtra("TeamLogo", R.drawable.ic_netslogo);
                 teamPage.putExtra("TeamConference",0);
                 teamPage.putExtra("TeamColors", R.color.colorNetsPrimary);
+                teamPage.putExtra("PtsInPaintRank", 15);
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
-                finish();
                 break;
             case R.id.nuggetsbutton:
                 id = R.integer.nuggetsID;
@@ -291,10 +291,10 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 teamPage.putExtra("TeamLogo", R.drawable.ic_nuggetslogo);
                 teamPage.putExtra("TeamConference",1);
                 teamPage.putExtra("TeamColors", R.color.colorNuggetsPrimary);
+                teamPage.putExtra("PtsInPaintRank", 5);
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
-                finish();
                 break;
             case R.id.pacersbutton:
                 id = R.integer.pacersID;
@@ -303,10 +303,10 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 teamPage.putExtra("TeamLogo", R.drawable.ic_pacerslogo);
                 teamPage.putExtra("TeamConference",0);
                 teamPage.putExtra("TeamColors", R.color.colorPacersPrimary);
+                teamPage.putExtra("PtsInPaintRank", 12);
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
-                finish();
                 break;
             case R.id.pelicansbutton:
                 id = R.integer.pelicansID;
@@ -315,10 +315,10 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 teamPage.putExtra("TeamLogo", R.drawable.ic_pelicanslogo);
                 teamPage.putExtra("TeamConference",1);
                 teamPage.putExtra("TeamColors", R.color.colorPelicansPrimary);
+                teamPage.putExtra("PtsInPaintRank", 1);
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
-                finish();
                 break;
             case R.id.pistonbutton:
                 id = R.integer.pistonsID;
@@ -327,10 +327,10 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 teamPage.putExtra("TeamLogo", R.drawable.ic_pistonslogo);
                 teamPage.putExtra("TeamConference",0);
                 teamPage.putExtra("TeamColors", R.color.colorPistonsPrimary);
+                teamPage.putExtra("PtsInPaintRank", 20);
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
-                finish();
                 break;
             case R.id.raptorsbutton:
                 id = R.integer.raptorsID;
@@ -339,10 +339,10 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 teamPage.putExtra("TeamLogo", R.drawable.ic_raptorslogo);
                 teamPage.putExtra("TeamConference",0);
                 teamPage.putExtra("TeamColors", R.color.colorRaptorsPrimary);
+                teamPage.putExtra("PtsInPaintRank", 6);
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
-                finish();
                 break;
             case R.id.rocketsbutton:
                 id = R.integer.rocketsID;
@@ -351,10 +351,10 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 teamPage.putExtra("TeamLogo", R.drawable.ic_rocketslogo);
                 teamPage.putExtra("TeamConference",1);
                 teamPage.putExtra("TeamColors", R.color.colorRocketsPrimary);
+                teamPage.putExtra("PtsInPaintRank", 28);
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
-                finish();
                 break;
             case R.id.sixersbutton:
                 id = R.integer.sixersID;
@@ -363,10 +363,10 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 teamPage.putExtra("TeamLogo", R.drawable.ic_sixerslogo);
                 teamPage.putExtra("TeamConference",0);
                 teamPage.putExtra("TeamColors", R.color.colorSixersPrimary);
+                teamPage.putExtra("PtsInPaintRank", 8);
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
-                finish();
                 break;
             case R.id.spursbutton:
                 id = R.integer.spursID;
@@ -375,10 +375,10 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 teamPage.putExtra("TeamLogo", R.drawable.ic_spurslogo);
                 teamPage.putExtra("TeamConference",1);
                 teamPage.putExtra("TeamColors", R.color.colorSpursPrimary);
+                teamPage.putExtra("PtsInPaintRank", 22);
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
-                finish();
                 break;
             case R.id.sunsbutton:
                 id = R.integer.sunsID;
@@ -387,10 +387,10 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 teamPage.putExtra("TeamLogo", R.drawable.ic_sunslogo);
                 teamPage.putExtra("TeamConference",1);
                 teamPage.putExtra("TeamColors", R.color.colorSunsPrimary);
+                teamPage.putExtra("PtsInPaintRank", 10);
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
-                finish();
                 break;
             case R.id.thunderbutton:
                 id = R.integer.thunderID;
@@ -399,10 +399,10 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 teamPage.putExtra("TeamLogo", R.drawable.ic_thunderlogo);
                 teamPage.putExtra("TeamConference",1);
                 teamPage.putExtra("TeamColors", R.color.colorThunderPrimary);
+                teamPage.putExtra("PtsInPaintRank", 18);
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
-                finish();
                 break;
             case R.id.trailblazersbutton:
                 id = R.integer.trailblazersID;
@@ -411,10 +411,10 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 teamPage.putExtra("TeamLogo", R.drawable.ic_trailblazerslogo);
                 teamPage.putExtra("TeamConference",1);
                 teamPage.putExtra("TeamColors", R.color.colorTrailblazersPrimary);
+                teamPage.putExtra("PtsInPaintRank", 23);
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
-                finish();
                 break;
             case R.id.timberwolvesbutton:
                 id = R.integer.timberwolvesID;
@@ -423,10 +423,10 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 teamPage.putExtra("TeamLogo", R.drawable.ic_timberwolveslogo);
                 teamPage.putExtra("TeamConference",1);
                 teamPage.putExtra("TeamColors", R.color.colorTimberwolvesPrimary);
+                teamPage.putExtra("PtsInPaintRank", 4);
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
-                finish();
                 break;
             case R.id.warriorsbutton:
                 id = R.integer.warriorsID;
@@ -435,10 +435,10 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 teamPage.putExtra("TeamLogo", R.drawable.ic_warriorslogo);
                 teamPage.putExtra("TeamConference",1);
                 teamPage.putExtra("TeamColors", R.color.colorWarriorsPrimary);
+                teamPage.putExtra("PtsInPaintRank", 19);
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
-                finish();
                 break;
             case R.id.wizardsbutton:
                 id = R.integer.wizardsID;
@@ -447,13 +447,12 @@ public class ChooseYourTeam extends AppCompatActivity implements View.OnClickLis
                 teamPage.putExtra("TeamLogo", R.drawable.ic_wizardslogo);
                 teamPage.putExtra("TeamConference",0);
                 teamPage.putExtra("TeamColors", R.color.colorWizardsPrimary);
+                teamPage.putExtra("PtsInPaintRank", 24);
                 options = ActivityOptions
                         .makeSceneTransitionAnimation(this, v, "logo");
                 startActivity(teamPage, options.toBundle());
-                finish();
                 break;
             default:
-                finish();
                 break;
         }
     }

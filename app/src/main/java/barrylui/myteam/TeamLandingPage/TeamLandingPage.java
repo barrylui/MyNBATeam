@@ -1,6 +1,7 @@
 package barrylui.myteam.TeamLandingPage;
 
 import android.content.Intent;
+import android.content.pm.InstrumentationInfo;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.support.v4.view.GravityCompat;
@@ -67,13 +68,13 @@ public class TeamLandingPage extends AppCompatActivity implements NavigationView
     Double teamrpg;
     Double team3pt;
 
+    int numInside;
     int numOffense;
     int numDefense;
     int numRebounds;
     int numPassing;
     int numThrees;
 
-    RadarChart chart;
     ArrayList<String> labels;
 
     final String BASE_URL = "https://api.mysportsfeeds.com/v1.2/pull/nba/2017-2018-regular/";
@@ -116,7 +117,8 @@ public class TeamLandingPage extends AppCompatActivity implements NavigationView
         teamcolors = getIntent().getIntExtra("TeamColors",0);
         teamName = getIntent().getStringExtra("TeamName");
         teamConference = getIntent().getIntExtra("TeamConference", -1);
-
+        int teamInsideRank = getIntent().getIntExtra("PtsInPaintRank", -1);
+        numInside = 31-teamInsideRank;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setBackgroundDrawable(getDrawable(teamcolors));
@@ -149,17 +151,13 @@ public class TeamLandingPage extends AppCompatActivity implements NavigationView
 
         ImageView iv = (ImageView)findViewById(R.id.teamlogo);
         iv.setImageResource(teamlogo);
-
-        chart = (RadarChart)findViewById(R.id.radarchart);
-        labels = new ArrayList<String>();
-        labels.add("3PT");
-        labels.add("Passing");
-        labels.add("Offense");
-        labels.add("Defense");
-        labels.add("Rebounding");
-
-
-
+        if(teamName.equals("DAL"))
+        {
+            iv.getLayoutParams().width = 550;
+            iv.getLayoutParams().height = 550;
+            
+            iv.setScaleType(ImageView.ScaleType.FIT_XY);
+        }
 
         if(InternetCheckerUtility.isNetworkAvailable(TeamLandingPage.this)==false){
             Toast.makeText(TeamLandingPage.this, "No Internet Connection", Toast.LENGTH_LONG).show();
@@ -172,7 +170,6 @@ public class TeamLandingPage extends AppCompatActivity implements NavigationView
         SportsFeedAPI sportsFeedAPI = retrofit.create(SportsFeedAPI.class);
         String teamstatsparams = "W,L,PTS/G,AST/G,REB/G,3PA/G,3PM/G,PTS/G,PTSA/G";
         Call<Standings> call = sportsFeedAPI.getStandings(teamstatsparams, teamName);
-        Log.d(TAG, "teamName: "+teamName);
 
         call.enqueue(new Callback<Standings>() {
             @Override
@@ -294,19 +291,34 @@ public class TeamLandingPage extends AppCompatActivity implements NavigationView
                             Log.d(TAG, "threesval: "+ threesval);
                         }
                     }
-                    Log.d(TAG, "ORank: " + numOffense + " DRank: " + numDefense + " RRank: "+ numRebounds + " PRank: " + numPassing + " 3Rank: " + numThrees);
-                    int dRank = 30 - numDefense;
+                    int dRank = 31 - numDefense;
+                    Log.d(TAG, "ORank: " + numOffense + " DRank: " + dRank + " RRank: "+ numRebounds + " PRank: " + numPassing + " 3Rank: " + numThrees + " IRank " + numInside);
+
+
+                    RadarChart chart = (RadarChart)findViewById(R.id.radarchart);
+
                     ArrayList<Entry> entry1 = new ArrayList<>();
-                    entry1.add(new Entry( numThrees,0));
-                    entry1.add(new Entry(numPassing,1));
-                    entry1.add(new Entry(numOffense,2));
-                    entry1.add(new Entry(dRank,3));
-                    entry1.add(new Entry(numRebounds,4));
-                    //3PT passing offense defense rebounding
+                    entry1.add(new Entry( numRebounds,0));
+                    entry1.add(new Entry(numOffense,1));
+                    entry1.add(new Entry(dRank,2));
+                    entry1.add(new Entry(numPassing,3));
+                    entry1.add(new Entry(numInside,4));
+                    entry1.add(new Entry(numThrees,5));
+
+                    labels = new ArrayList<String>();
+                    labels.add("Rebounds");
+                    labels.add("Offense");
+                    labels.add("Defense");
+                    labels.add("Assists");
+                    labels.add("Inside");
+                    labels.add("3PT");
 
                     RadarDataSet dataset1 = new RadarDataSet(entry1,"Player");
                     dataset1.setColor(getColor(teamcolors));
                     dataset1.setDrawFilled(true);
+                    dataset1.setFillColor(getColor(teamcolors));
+                    dataset1.setFillAlpha(180);
+                    dataset1.setLineWidth(5f);
                     dataset1.setDrawValues(false);
 
                     ArrayList<RadarDataSet> dataSets= new ArrayList<RadarDataSet>();
@@ -318,12 +330,17 @@ public class TeamLandingPage extends AppCompatActivity implements NavigationView
                     l.setEnabled(false);
 
                     YAxis yAxis = chart.getYAxis();
+                    yAxis.resetAxisMaxValue();
                     yAxis.setAxisMaxValue(30);
                     yAxis.setAxisMinValue(0);
                     yAxis.setDrawLabels(false);
 
+                    chart.notifyDataSetChanged();
                     chart.invalidate();
                     chart.animate();
+
+
+
 
                 }
                 else{
