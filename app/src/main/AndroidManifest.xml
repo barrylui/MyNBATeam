@@ -19,7 +19,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TeamLandingPage.TeamLandingPage" />
+        <activity
+            android:name=".TeamLandingPage.TeamLandingPage"
+            android:parentActivityName=".ChooseYourTeam"
+            />
         <activity android:name=".RosterViewer" />
         <activity android:name=".GameLog"></activity>
     </application>

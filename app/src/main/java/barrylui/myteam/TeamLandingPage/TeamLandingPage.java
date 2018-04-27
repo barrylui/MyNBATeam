@@ -1,18 +1,15 @@
 package barrylui.myteam.TeamLandingPage;
 
 import android.content.Intent;
-import android.content.pm.InstrumentationInfo;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.support.design.widget.NavigationView;
@@ -55,6 +52,8 @@ public class TeamLandingPage extends AppCompatActivity implements NavigationView
     TextView rpgtv;
     TextView tpatv;
     TextView tpptv;
+    TextView teamranktv;
+    Button teamRoster;
 
     String teamName="";
     int teamConference=-1;
@@ -62,6 +61,7 @@ public class TeamLandingPage extends AppCompatActivity implements NavigationView
 
     String city;
     String name;
+    String standingsRank;
     Double teamppg;
     Double oppPPG;
     Double teamapg;
@@ -90,15 +90,18 @@ public class TeamLandingPage extends AppCompatActivity implements NavigationView
         setContentView(R.layout.activity_team_landing_page);
 
         franchiseName = (TextView)findViewById(R.id.franchiseName);
-        winstv  = (TextView)findViewById(R.id.numWins);
-        losestv = (TextView)findViewById(R.id.numLoses);
-        dashtv = (TextView) findViewById(R.id.dash);
+        winstv  = (TextView)findViewById(R.id.numWinsTextView);
+        losestv = (TextView)findViewById(R.id.numLosesTextView);
+        dashtv = (TextView) findViewById(R.id.dashTextView);
         ppgtv = (TextView)findViewById(R.id.ppgtextview);
         oppgtv = (TextView)findViewById(R.id.oppgtextview);
         apgtv = (TextView)findViewById(R.id.apgtextview);
         rpgtv =(TextView)findViewById(R.id.rpgtextview);
         tpatv = (TextView)findViewById(R.id.textview3pa);
         tpptv = (TextView)findViewById(R.id.textview3pp);
+        teamranktv = (TextView)findViewById(R.id.teamStanding);
+        teamRoster = (Button)findViewById(R.id.teamRosterButton) ;
+
 
         client = new OkHttpClient.Builder()
                 .addInterceptor(new BasicAuthInterceptor(getString(R.string.username), getString(R.string.password)))
@@ -123,31 +126,15 @@ public class TeamLandingPage extends AppCompatActivity implements NavigationView
         setSupportActionBar(toolbar);
         getSupportActionBar().setBackgroundDrawable(getDrawable(teamcolors));
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        navigationView.getMenu().findItem(R.id.item1).getIcon().setColorFilter(getResources().getColor(teamcolors), PorterDuff.Mode.SRC_IN);
-        navigationView.getMenu().findItem(R.id.item2).getIcon().setColorFilter(getResources().getColor(teamcolors), PorterDuff.Mode.SRC_IN);
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,  R.string.open_drawer, R.string.close_drawer)
-        {
-            @Override
-            public void onDrawerClosed(View drawerView){
-                super.onDrawerClosed(drawerView);
-            }
 
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-            }
-        };
-
-        drawerLayout.setDrawerListener(actionBarDrawerToggle);
-        actionBarDrawerToggle.syncState();
-
-        winstv.setTextColor(getResources().getColor(teamcolors));
-        losestv.setTextColor(getResources().getColor(teamcolors));
-        dashtv.setTextColor(getResources().getColor(teamcolors));
+        winstv.setTextColor(getColor(teamcolors));
+        losestv.setTextColor(getColor(teamcolors));
+        dashtv.setTextColor(getColor(teamcolors));
+        teamRoster.setBackgroundColor(getColor(teamcolors));
+        teamRoster.setTextColor(Color.WHITE);
 
         ImageView iv = (ImageView)findViewById(R.id.teamlogo);
         iv.setImageResource(teamlogo);
@@ -155,7 +142,7 @@ public class TeamLandingPage extends AppCompatActivity implements NavigationView
         {
             iv.getLayoutParams().width = 550;
             iv.getLayoutParams().height = 550;
-            
+
             iv.setScaleType(ImageView.ScaleType.FIT_XY);
         }
 
@@ -189,19 +176,31 @@ public class TeamLandingPage extends AppCompatActivity implements NavigationView
                     losestv.setText(numberOfLoses);
 
                     teamppg = Double.parseDouble(response.body().getConferenceteamstandings().getConference().get(teamConference).getTeamentry().get(0).getStats().getPtsPerGame().get(0).getText());
-                    //ppgtv.setText(teamppg + " Points Per Game");
+                    ppgtv.setText(teamppg + " Points Per Game");
 
                     oppPPG = Double.parseDouble(response.body().getConferenceteamstandings().getConference().get(teamConference).getTeamentry().get(0).getStats().getPtsAgainstPerGame().getText());
-                    //oppgtv.setText(oppPPG + " Opponents PPG");
+                    oppgtv.setText(oppPPG + " Opponents PPG");
 
                     teamapg = Double.parseDouble(response.body().getConferenceteamstandings().getConference().get(teamConference).getTeamentry().get(0).getStats().getAstPerGame().getText());
-                    //apgtv.setText(teamapg + " Assists Per Game");
+                    apgtv.setText(teamapg + " Assists Per Game");
 
                     teamrpg = Double.parseDouble(response.body().getConferenceteamstandings().getConference().get(teamConference).getTeamentry().get(0).getStats().getRebPerGame().getText());
-                    //rpgtv.setText(teamrpg + " Rebounds Per Game" );
+                    rpgtv.setText(teamrpg + " Rebounds Per Game" );
 
                     team3pt = Double.parseDouble(response.body().getConferenceteamstandings().getConference().get(teamConference).getTeamentry().get(0).getStats().getFg3PtMadePerGame().getText());
-                    //tpatv.setText(team3pt + " 3Pt Made Per Game");
+                    tpatv.setText(team3pt + " 3Pt Made Per Game");
+
+                    standingsRank = response.body().getConferenceteamstandings().getConference().get(teamConference).getTeamentry().get(0).getRank();
+                    String conference;
+                    if(teamConference == 0){
+                        conference = "East";
+                    }
+                    else{
+                        conference = "West";
+                    }
+                    standingsRank = "#" + standingsRank + " in the " + conference;
+                    teamranktv.setText(standingsRank);
+                    teamranktv.setTextColor(getColor(teamcolors));
 
                     getTeamStatsRankAndBind();
                 }
@@ -337,7 +336,6 @@ public class TeamLandingPage extends AppCompatActivity implements NavigationView
 
                     chart.notifyDataSetChanged();
                     chart.invalidate();
-                    chart.animate();
 
 
 
