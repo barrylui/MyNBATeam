@@ -2,6 +2,7 @@ package barrylui.myteam.TeamLandingPage;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -54,6 +55,7 @@ public class TeamLandingPage extends AppCompatActivity implements NavigationView
     TextView tpptv;
     TextView teamranktv;
     Button teamRoster;
+    TextView infotv;
 
     String teamName="";
     int teamConference=-1;
@@ -89,20 +91,6 @@ public class TeamLandingPage extends AppCompatActivity implements NavigationView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_team_landing_page);
 
-        franchiseName = (TextView)findViewById(R.id.franchiseName);
-        winstv  = (TextView)findViewById(R.id.numWinsTextView);
-        losestv = (TextView)findViewById(R.id.numLosesTextView);
-        dashtv = (TextView) findViewById(R.id.dashTextView);
-        ppgtv = (TextView)findViewById(R.id.ppgtextview);
-        oppgtv = (TextView)findViewById(R.id.oppgtextview);
-        apgtv = (TextView)findViewById(R.id.apgtextview);
-        rpgtv =(TextView)findViewById(R.id.rpgtextview);
-        tpatv = (TextView)findViewById(R.id.textview3pa);
-        tpptv = (TextView)findViewById(R.id.textview3pp);
-        teamranktv = (TextView)findViewById(R.id.teamStanding);
-        teamRoster = (Button)findViewById(R.id.teamRosterButton) ;
-
-
         client = new OkHttpClient.Builder()
                 .addInterceptor(new BasicAuthInterceptor(getString(R.string.username), getString(R.string.password)))
                 .build();
@@ -114,6 +102,8 @@ public class TeamLandingPage extends AppCompatActivity implements NavigationView
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+
+
 
         int teamid = getIntent().getIntExtra("TeamID",0);
         int teamlogo = getIntent().getIntExtra("TeamLogo",0);
@@ -130,11 +120,26 @@ public class TeamLandingPage extends AppCompatActivity implements NavigationView
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
+        franchiseName = (TextView)findViewById(R.id.franchiseName);
+        winstv  = (TextView)findViewById(R.id.numWinsTextView);
+        losestv = (TextView)findViewById(R.id.numLosesTextView);
+        dashtv = (TextView) findViewById(R.id.dashTextView);
+        ppgtv = (TextView)findViewById(R.id.ppgtextview);
+        oppgtv = (TextView)findViewById(R.id.oppgtextview);
+        apgtv = (TextView)findViewById(R.id.apgtextview);
+        rpgtv =(TextView)findViewById(R.id.rpgtextview);
+        tpatv = (TextView)findViewById(R.id.textview3pa);
+        tpptv = (TextView)findViewById(R.id.textview3pp);
+        teamranktv = (TextView)findViewById(R.id.teamStanding);
+        teamRoster = (Button)findViewById(R.id.teamRosterButton) ;
+        infotv = (TextView)findViewById(R.id.infoTextView);
+        
         winstv.setTextColor(getColor(teamcolors));
         losestv.setTextColor(getColor(teamcolors));
         dashtv.setTextColor(getColor(teamcolors));
         teamRoster.setBackgroundColor(getColor(teamcolors));
         teamRoster.setTextColor(Color.WHITE);
+        infotv.setTextColor(Color.BLACK);
 
         ImageView iv = (ImageView)findViewById(R.id.teamlogo);
         iv.setImageResource(teamlogo);
@@ -148,8 +153,28 @@ public class TeamLandingPage extends AppCompatActivity implements NavigationView
 
         if(InternetCheckerUtility.isNetworkAvailable(TeamLandingPage.this)==false){
             Toast.makeText(TeamLandingPage.this, "No Internet Connection", Toast.LENGTH_LONG).show();
+            infotv.setText("No Internet Connection");
         }else{
+            new AsyncFetchNBAData().execute();
+
+        }
+    }
+
+    private class AsyncFetchNBAData extends AsyncTask<Void, Void, Void>{
+        @Override
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
             getTeamStats();
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            Toast.makeText(TeamLandingPage.this, "Fetching data...", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -202,7 +227,7 @@ public class TeamLandingPage extends AppCompatActivity implements NavigationView
                     teamranktv.setText(standingsRank);
                     teamranktv.setTextColor(getColor(teamcolors));
 
-                    getTeamStatsRankAndBind();
+                    getTeamStatsRankAndBindData();
                 }
                 else{
                     Log.d(TAG, "onResponse: Server Response " + response.toString());
@@ -228,7 +253,7 @@ public class TeamLandingPage extends AppCompatActivity implements NavigationView
         finish();
     }
 
-    public void getTeamStatsRankAndBind(){
+    public void getTeamStatsRankAndBindData(){
         SportsFeedAPI sportsFeedAPI = retrofit.create(SportsFeedAPI.class);
         String params = "PTS/G,PTSA/G,REB/G,AST/G,3PM/G";
         Call<Rankings> call = sportsFeedAPI.getStatsRank(params);
@@ -309,7 +334,7 @@ public class TeamLandingPage extends AppCompatActivity implements NavigationView
                     labels.add("Offense");
                     labels.add("Defense");
                     labels.add("Assists");
-                    labels.add("Inside");
+                    labels.add("Inside Scoring");
                     labels.add("3PT");
 
                     RadarDataSet dataset1 = new RadarDataSet(entry1,"Player");

@@ -134,6 +134,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginRight="17dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/infoTextView"
+        android:layout_above="@id/radarchart"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
 
     <com.github.mikephil.charting.charts.RadarChart
         android:id="@+id/radarchart"
