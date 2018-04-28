@@ -23,8 +23,7 @@
             android:name=".TeamLandingPage.TeamLandingPage"
             android:parentActivityName=".ChooseYourTeam"
             />
-        <activity android:name=".RosterViewer" />
-        <activity android:name=".GameLog"></activity>
+        <activity android:name=".TeamRoster.RosterViewer" />
     </application>
 
 </manifest>

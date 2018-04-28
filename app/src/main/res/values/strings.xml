@@ -34,4 +34,5 @@
     <string name="timberwolves_name">MIN</string>
     <string name="warriors_name">GSW</string>
     <string name="wizards_name">WAS</string>
+    <string name="Roster">Roster</string>
 </resources>

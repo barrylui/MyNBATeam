@@ -42,7 +42,7 @@
         android:id="@+id/teamRosterButton"
         android:layout_below="@id/teamlogo"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="20dp"/>
+        android:layout_marginLeft="25dp"/>
 
 
     <TextView

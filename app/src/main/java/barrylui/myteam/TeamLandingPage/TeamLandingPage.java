@@ -3,17 +3,15 @@ package barrylui.myteam.TeamLandingPage;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.support.design.widget.NavigationView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.RadarChart;
@@ -28,10 +26,9 @@ import java.util.Arrays;
 
 import barrylui.myteam.ChooseYourTeam;
 import barrylui.myteam.ConferenceTeamStandingsModel.Standings;
-import barrylui.myteam.GameLog;
 import barrylui.myteam.R;
 import barrylui.myteam.RankingsModel.Rankings;
-import barrylui.myteam.RosterViewer;
+import barrylui.myteam.TeamRoster.RosterViewer;
 import barrylui.myteam.SportsFeedAPI;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
@@ -41,7 +38,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class TeamLandingPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class TeamLandingPage extends AppCompatActivity{
 
     TextView franchiseName;
     TextView winstv;
@@ -56,6 +53,7 @@ public class TeamLandingPage extends AppCompatActivity implements NavigationView
     TextView teamranktv;
     Button teamRoster;
     TextView infotv;
+    RadarChart radarChart;
 
     String teamName="";
     int teamConference=-1;
@@ -106,7 +104,7 @@ public class TeamLandingPage extends AppCompatActivity implements NavigationView
 
 
         int teamid = getIntent().getIntExtra("TeamID",0);
-        int teamlogo = getIntent().getIntExtra("TeamLogo",0);
+        final int teamlogo = getIntent().getIntExtra("TeamLogo",0);
         teamcolors = getIntent().getIntExtra("TeamColors",0);
         teamName = getIntent().getStringExtra("TeamName");
         teamConference = getIntent().getIntExtra("TeamConference", -1);
@@ -131,9 +129,11 @@ public class TeamLandingPage extends AppCompatActivity implements NavigationView
         tpatv = (TextView)findViewById(R.id.textview3pa);
         tpptv = (TextView)findViewById(R.id.textview3pp);
         teamranktv = (TextView)findViewById(R.id.teamStanding);
-        teamRoster = (Button)findViewById(R.id.teamRosterButton) ;
         infotv = (TextView)findViewById(R.id.infoTextView);
-        
+        teamRoster = (Button)findViewById(R.id.teamRosterButton) ;
+        radarChart = (RadarChart)findViewById(R.id.radarchart);
+
+
         winstv.setTextColor(getColor(teamcolors));
         losestv.setTextColor(getColor(teamcolors));
         dashtv.setTextColor(getColor(teamcolors));
@@ -151,11 +151,31 @@ public class TeamLandingPage extends AppCompatActivity implements NavigationView
             iv.setScaleType(ImageView.ScaleType.FIT_XY);
         }
 
+
+        //Check if there is internet connection
         if(InternetCheckerUtility.isNetworkAvailable(TeamLandingPage.this)==false){
+            //Display no internet connection and disable teamroster button;
             Toast.makeText(TeamLandingPage.this, "No Internet Connection", Toast.LENGTH_LONG).show();
             infotv.setText("No Internet Connection");
+            teamRoster.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(TeamLandingPage.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
+                }
+            });
         }else{
+            teamRoster.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent rosterIntent = new Intent(TeamLandingPage.this, RosterViewer.class);
+                    rosterIntent.putExtra("TeamAbbrv", teamName);
+                    rosterIntent.putExtra("TeamColor", teamcolors);
+                    rosterIntent.putExtra("TeamLogo", teamlogo);
+                    startActivity(rosterIntent);
+                }
+            });
             new AsyncFetchNBAData().execute();
+            infotv.setText("Team Profile");
 
         }
     }
@@ -170,11 +190,6 @@ public class TeamLandingPage extends AppCompatActivity implements NavigationView
         protected Void doInBackground(Void... voids) {
             getTeamStats();
             return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            Toast.makeText(TeamLandingPage.this, "Fetching data...", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -240,7 +255,8 @@ public class TeamLandingPage extends AppCompatActivity implements NavigationView
             @Override
             public void onFailure(Call<Standings> call, Throwable t) {
                 Log.e(TAG, "onFailure: Something went wrong: " + t.getMessage());
-
+                Toast.makeText(TeamLandingPage.this, "Something went wrong" + t.getMessage(), Toast.LENGTH_LONG).show();
+                infotv.setText("No data available");
             }
         });
     }
@@ -253,6 +269,8 @@ public class TeamLandingPage extends AppCompatActivity implements NavigationView
         finish();
     }
 
+    //Loads team's stats into an array and sorts the array
+    //After sorting each team's stats, it can bind each stat to the chart based on their rank amongst other teams
     public void getTeamStatsRankAndBindData(){
         SportsFeedAPI sportsFeedAPI = retrofit.create(SportsFeedAPI.class);
         String params = "PTS/G,PTSA/G,REB/G,AST/G,3PM/G";
@@ -296,30 +314,21 @@ public class TeamLandingPage extends AppCompatActivity implements NavigationView
 
                         if (offenseval == 0){
                              numOffense = i;
-                            Log.d(TAG, "offenseval: "+ offenseval);
                         }
                         if (defenseval == 0){
                             numDefense = i;
-                            Log.d(TAG, "Defenseval: "+ defenseval);
                         }
                         if (reboundval == 0){
                             numRebounds = i;
-                            Log.d(TAG, "Reboundval: "+ reboundval);
                         }
                         if (passingval == 0){
                             numPassing = i;
-                            Log.d(TAG, "passingval: "+ passingval);
                         }
                         if (threesval == 0){
                             numThrees = i;
-                            Log.d(TAG, "threesval: "+ threesval);
                         }
                     }
                     int dRank = 31 - numDefense;
-                    Log.d(TAG, "ORank: " + numOffense + " DRank: " + dRank + " RRank: "+ numRebounds + " PRank: " + numPassing + " 3Rank: " + numThrees + " IRank " + numInside);
-
-
-                    RadarChart chart = (RadarChart)findViewById(R.id.radarchart);
 
                     ArrayList<Entry> entry1 = new ArrayList<>();
                     entry1.add(new Entry( numRebounds,0));
@@ -348,19 +357,19 @@ public class TeamLandingPage extends AppCompatActivity implements NavigationView
                     ArrayList<RadarDataSet> dataSets= new ArrayList<RadarDataSet>();
                     dataSets.add(dataset1);
                     RadarData theradardata = new RadarData(labels, dataSets);
-                    chart.setData(theradardata);
-                    chart.setDescription("");
-                    Legend l = chart.getLegend();
+                    radarChart.setData(theradardata);
+                    radarChart.setDescription("");
+                    Legend l = radarChart.getLegend();
                     l.setEnabled(false);
 
-                    YAxis yAxis = chart.getYAxis();
+                    YAxis yAxis = radarChart.getYAxis();
                     yAxis.resetAxisMaxValue();
                     yAxis.setAxisMaxValue(30);
                     yAxis.setAxisMinValue(0);
                     yAxis.setDrawLabels(false);
 
-                    chart.notifyDataSetChanged();
-                    chart.invalidate();
+                    radarChart.notifyDataSetChanged();
+                    radarChart.invalidate();
 
 
 
@@ -375,30 +384,9 @@ public class TeamLandingPage extends AppCompatActivity implements NavigationView
             @Override
             public void onFailure(Call<Rankings> call, Throwable t) {
                 Log.e(TAG, "onFailure: Something went wrong: " + t.getMessage());
-
+                Toast.makeText(TeamLandingPage.this, "Something went wrong" + t.getMessage(), Toast.LENGTH_LONG).show();
+                infotv.setText("No data available");
             }
         });
-    }
-
-
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (id) {
-            //Starts map activity with court listings
-            case R.id.item1:
-                Intent rosterView = new Intent(this, RosterViewer.class);
-                this.startActivity(rosterView);
-                break;
-            case R.id.item2:
-                Intent gamelog = new Intent(this, GameLog.class);
-                this.startActivity(gamelog);
-                break;
-            default:
-                break;
-        }
-
-        drawerLayout.closeDrawer(GravityCompat.START);
-        return true;
     }
 }
