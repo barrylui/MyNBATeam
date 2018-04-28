@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.util.List;
@@ -30,6 +31,7 @@ public class RosterViewer extends AppCompatActivity {
     String teamName;
     int  teamColors;
     int teamLogo;
+    LinearLayout linearLayout;
     private static final String TAG = "RosterView";
     ImageView toolbarLogo;
 

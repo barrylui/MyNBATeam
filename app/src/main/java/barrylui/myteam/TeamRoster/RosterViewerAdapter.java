@@ -43,8 +43,7 @@ public class RosterViewerAdapter extends RecyclerView.Adapter<RosterViewerAdapte
         String url = "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/" + playerId + ".png";
         viewHolder.playerName.setText(theFirstName + " " + theLastName);
         Context context = viewHolder.playerPhoto.getContext();
-        Picasso.with(context).load(url).into(viewHolder.playerPhoto);
-
+        Picasso.with(context).load(url).placeholder(R.drawable.default_nba_headshot_v2).error(R.drawable.default_nba_headshot_v2).into(viewHolder.playerPhoto);
     }
 
 
