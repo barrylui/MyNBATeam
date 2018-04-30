@@ -1,37 +1,59 @@
 package barrylui.myteam;
 
-import android.content.Context;
-import android.media.Image;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
+import java.text.DecimalFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 
-import barrylui.myteam.TeamLandingPage.InternetCheckerUtility;
-import barrylui.myteam.TeamLandingPage.TeamLandingPage;
+import barrylui.myteam.MySportsFeedAPI.MySportsFeedPlayerInfoModel.PlayerInfo;
+import barrylui.myteam.MySportsFeedAPI.MySportsFeedPlayerInfoModel.Rosterplayers;
+import barrylui.myteam.MySportsFeedAPI.MySportsFeedPlayerStatsModel.PlayerStatsPerGame;
+import barrylui.myteam.MySportsFeedAPI.SportsFeedAPI;
+import okhttp3.OkHttpClient;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PlayerPage extends AppCompatActivity {
 
     String TAG  = "PlayerPage";
     String mysportsteamid;
+    HashMap<String, Integer> colorMap = new HashMap<String, Integer>();
+    OkHttpClient client;
+    Retrofit retrofit;
+    final String BASE_URL = "https://api.mysportsfeeds.com/v1.2/pull/nba/2017-2018-regular/";
+    String suredBitsFirstName;
+    String suredBitsLastName;
+    String mysportsfeedFirstName;
+    String mysportsfeedLastName;
+    TextView jerseyNumbertextview;
+    TextView firstNametextview;
+    TextView lastNametextview;
+    TextView positiontextview;
+    TextView heighttextview;
+    TextView agetextview;
+    TextView ppgapgrpgtextview;
+    TextView stealsblockstextview;
+    TextView minutesfreethrowsfieldgoalspergame;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_page);
 
-        HashMap<String, Integer> colorMap = new HashMap<String, Integer>();
+
         colorMap.put("MIL", R.color.colorBucksPrimary);
         colorMap.put("CHI", R.color.colorBullsPrimary);
         colorMap.put("CLE", R.color.colorCavaliersPrimary);
@@ -65,39 +87,70 @@ public class PlayerPage extends AppCompatActivity {
         //OKL -> OKC
         //BRO -> BKN
 
-        String firstName = getIntent().getStringExtra("firstName");
-        String lastName = getIntent().getStringExtra("lastName");
+        suredBitsFirstName= getIntent().getStringExtra("firstName");
+        suredBitsLastName = getIntent().getStringExtra("lastName");
         String imageurl = getIntent().getStringExtra("imageurl");
         String teamidsuredbits = getIntent().getStringExtra("teamid");
-        Log.d(TAG, "onCreate: " + firstName + " " + lastName + " " + imageurl);
 
-        TextView jerseyNumbertextview = (TextView)findViewById(R.id.playerjerseynumber);
-        TextView firstNametextview = (TextView)findViewById(R.id.firstNameTextView);
-        TextView lastNametextview = (TextView)findViewById(R.id.lastNameTextView);
-        TextView positiontextview = (TextView)findViewById(R.id.positiontextview);
-        TextView heighttextview = (TextView)findViewById(R.id.heighttextview);
-        TextView agetextview = (TextView)findViewById(R.id.agetextview);
+        mysportsfeedFirstName = suredBitsFirstName;
+        mysportsfeedLastName = suredBitsLastName;
 
-        int color = getColor(colorMap.get(teamidsuredbits));
-        firstNametextview.setTextColor(color);
-        lastNametextview.setTextColor(color);
-        jerseyNumbertextview.setTextColor(color);
-        positiontextview.setTextColor(color);
-        heighttextview.setTextColor(color);
-        agetextview.setTextColor(color);
+        jerseyNumbertextview = (TextView)findViewById(R.id.playerjerseynumber);
+        firstNametextview = (TextView)findViewById(R.id.firstNameTextView);
+        lastNametextview = (TextView)findViewById(R.id.lastNameTextView);
+        positiontextview = (TextView)findViewById(R.id.positiontextview);
+        heighttextview = (TextView)findViewById(R.id.heighttextview);
 
-        firstNametextview.setText(firstName);
-        lastNametextview.setText(lastName);
+        firstNametextview.setText(suredBitsFirstName);
+        lastNametextview.setText(suredBitsLastName);
+
+        mysportsfeedFirstName = mysportsfeedFirstName.replace(" ", "");
+        mysportsfeedFirstName = mysportsfeedFirstName.replace("-", "");
+        mysportsfeedFirstName = mysportsfeedFirstName.replace("'", "");
+        mysportsfeedFirstName = mysportsfeedFirstName.replace(".", "");
+        Log.d(TAG, "onCreate: " + mysportsfeedFirstName);
+
+        mysportsfeedLastName = mysportsfeedLastName.replace(" ","");
+        mysportsfeedLastName = mysportsfeedLastName.replace("'", "");
+        mysportsfeedLastName = mysportsfeedLastName.replace("-", "");
+        mysportsfeedLastName = mysportsfeedLastName.replace(".", "");
+        Log.d(TAG, "onCreate: " + mysportsfeedLastName);
+
+
+        TextView seasonaveragestextview = (TextView) findViewById(R.id.seasonaveragetextview);
+        agetextview = (TextView)findViewById(R.id.agetextview);
+        ppgapgrpgtextview = (TextView)findViewById(R.id.ppgapgrpgtextview);
+        stealsblockstextview = (TextView)findViewById(R.id.stealsblockstextview);
+        minutesfreethrowsfieldgoalspergame = (TextView)findViewById(R.id.mpgftpfgptextview);
+
+        int teamcolor = getColor(colorMap.get(teamidsuredbits));
+        firstNametextview.setTextColor(teamcolor);
+        lastNametextview.setTextColor(teamcolor);
+        jerseyNumbertextview.setTextColor(teamcolor);
+        positiontextview.setTextColor(teamcolor);
+        heighttextview.setTextColor(teamcolor);
+        agetextview.setTextColor(teamcolor);
+        seasonaveragestextview.setTextColor(teamcolor);
 
 
         TextView playertoolbartextview = (TextView)findViewById(R.id.playertoolbartextview);
-        playertoolbartextview.setText(firstName + " " + lastName);
+        playertoolbartextview.setText(suredBitsFirstName + " " + suredBitsLastName);
         Toolbar toolbar = (Toolbar) findViewById(R.id.playpagetoolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setBackgroundDrawable(getDrawable(colorMap.get(teamidsuredbits)));
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        client = new OkHttpClient.Builder()
+                .addInterceptor(new BasicAuthInterceptor("blui", "gdorf151"))
+                .build();
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
         ImageView playerPhoto = (ImageView)findViewById(R.id.playerphoto);
         Picasso.with(this).load(imageurl).placeholder(R.drawable.default_nba_headshot_v2).error(R.drawable.default_nba_headshot_v2).into(playerPhoto);
@@ -128,9 +181,109 @@ public class PlayerPage extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            //Method call here
+            fetchNBAPlayerDataAndBind();
             return null;
         }
+    }
+
+    public void fetchNBAPlayerDataAndBind(){
+        SportsFeedAPI sportsFeedAPI = retrofit.create(SportsFeedAPI.class);
+
+        String name =  mysportsfeedFirstName + "-" + mysportsfeedLastName;
+        Calendar calendar = Calendar.getInstance();
+        String date = String.valueOf(calendar.get(Calendar.MONTH))+String.valueOf(calendar.get(Calendar.DAY_OF_MONTH))+String.valueOf(calendar.get(Calendar.YEAR));
+        Call<PlayerInfo> call = sportsFeedAPI.getPlayerInfo(date, name);
+        call.enqueue(new Callback<PlayerInfo>() {
+            @Override
+            public void onResponse(Call<PlayerInfo> call, Response<PlayerInfo> response) {
+                Log.d(TAG, "onResponse: Server Response " + response.toString());
+
+                if(response.code()==200){
+                    String jerseyNumber = response.body().getRosterplayers().getPlayerentry().get(0).getPlayer().getJerseyNumber();
+                    if (jerseyNumber == null){
+                        jerseyNumbertextview.setText("");
+                    }else{
+                        jerseyNumbertextview.setText("#" + jerseyNumber);
+                    }
+
+                    String playerHeight = response.body().getRosterplayers().getPlayerentry().get(0).getPlayer().getHeight();
+                    heighttextview.setText(playerHeight);
+
+                    String playerAge = response.body().getRosterplayers().getPlayerentry().get(0).getPlayer().getAge();
+                    agetextview.setText("Age: " + playerAge);
+
+                    String playerPosition = response.body().getRosterplayers().getPlayerentry().get(0).getPlayer().getPosition();
+                    positiontextview.setText(playerPosition+ " | ");
+                }
+                else{
+                    Log.d(TAG, "onResponse: Server Response " + response.toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PlayerInfo> call, Throwable t) {
+                Log.e(TAG, "onFailure: something went wrong" + t.getMessage());
+                Toast.makeText(PlayerPage.this, "something went wrong " + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        String params = "PTS/G,AST/G,REB/G,STL/G,BS/G,MIN/G,FTM,FTA,FGM,FGA";
+        Call<PlayerStatsPerGame> call2 = sportsFeedAPI.getPlayerStatsPerGame(name, params);
+        call2.enqueue(new Callback<PlayerStatsPerGame>() {
+            @Override
+            public void onResponse(Call<PlayerStatsPerGame> call, Response<PlayerStatsPerGame> response) {
+                Log.d(TAG, "onResponse: Server Response " + response.toString());
+
+                if(response.code()==200){
+                    /*
+                    String jerseyNumber = response.body().getCumulativeplayerstats().getPlayerstatsentry().get(0).getPlayer().getJerseyNumber();
+                    if (jerseyNumber == null){
+                        jerseyNumbertextview.setText("");
+                    }else{
+                        jerseyNumbertextview.setText("#" + jerseyNumber);
+                    }
+                    String playerpoistion = response.body().getCumulativeplayerstats().getPlayerstatsentry().get(0).getPlayer().getPosition();
+                    positiontextview.setText(playerpoistion + " | ");
+*/
+                    String pointspergame = response.body().getCumulativeplayerstats().getPlayerstatsentry().get(0).getStats().getPtsPerGame().getText();
+                    String assistspergame = response.body().getCumulativeplayerstats().getPlayerstatsentry().get(0).getStats().getAstPerGame().getText();
+                    String reboundspergame = response.body().getCumulativeplayerstats().getPlayerstatsentry().get(0).getStats().getRebPerGame().getText();
+                    ppgapgrpgtextview.setText(pointspergame + " PPG  " + assistspergame + " APG  " + reboundspergame + " RPG  ");
+
+                    String stealspergame = response.body().getCumulativeplayerstats().getPlayerstatsentry().get(0).getStats().getStlPerGame().getText();
+                    String blockspergame = response.body().getCumulativeplayerstats().getPlayerstatsentry().get(0).getStats().getBlkPerGame().getText();
+                    stealsblockstextview.setText(stealspergame + " STL/G  " + blockspergame + " BLK/G");
+
+                    double mpgseconds = Double.parseDouble(response.body().getCumulativeplayerstats().getPlayerstatsentry().get(0).getStats().getMinSecondsPerGame().getText());
+                    double mpgminutes = mpgseconds/60;
+                    DecimalFormat minutesFormat = new DecimalFormat("#.##");
+                    String minutespergame = minutesFormat.format(mpgminutes);
+
+                    int fga = Integer.parseInt(response.body().getCumulativeplayerstats().getPlayerstatsentry().get(0).getStats().getFgAtt().getText());
+                    int fgm = Integer.parseInt(response.body().getCumulativeplayerstats().getPlayerstatsentry().get(0).getStats().getFgMade().getText());
+
+
+                    DecimalFormat percentageFormat = new DecimalFormat("#.#");
+                    double fgpercent= ((double)fgm/(double)fga)*100;
+                    String fgpercentage = percentageFormat.format(fgpercent);
+                    int fta = Integer.parseInt(response.body().getCumulativeplayerstats().getPlayerstatsentry().get(0).getStats().getFtAtt().getText());
+                    int ftm = Integer.parseInt(response.body().getCumulativeplayerstats().getPlayerstatsentry().get(0).getStats().getFtMade().getText());
+
+                    double ftpercent = ((double)ftm/(double)fta)*100;
+                    String ftpercentage = percentageFormat.format(ftpercent);
+                    minutesfreethrowsfieldgoalspergame.setText(minutespergame + " MPG  " + ftpercentage + "% FT  " + fgpercentage + "% FG");
+                }
+                else{
+                    Log.d(TAG, "onResponse: Server Response " + response.toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PlayerStatsPerGame> call, Throwable t) {
+                Log.e(TAG, "onFailure: something went wrong" + t.getMessage());
+                Toast.makeText(PlayerPage.this, "something went wrong " + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     @Override

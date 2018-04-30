@@ -1,4 +1,4 @@
-package barrylui.myteam.TeamLandingPage;
+package barrylui.myteam;
 
 import java.io.IOException;
 import okhttp3.Credentials;

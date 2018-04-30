@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/playerjerseynumber"
         android:textSize="50dp"
-        android:text="#44"
+        android:text="#--"
         android:textColor="#000000"
         android:layout_toRightOf="@id/playerphoto"
         android:layout_alignTop="@id/playerphoto"/>
@@ -75,13 +75,13 @@
         android:layout_alignBottom="@id/playerphoto"
         android:layout_toRightOf="@id/playerphoto"
         android:layout_marginLeft="10dp"
-        android:text="PG | "/>
+        android:text="-- | "/>
     <TextView
         android:id="@+id/heighttextview"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="6'9"
+        android:text="-'-"
         android:layout_alignBottom="@id/playerphoto"
         android:layout_toRightOf="@id/positiontextview"/>
     <TextView
@@ -89,13 +89,13 @@
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Age : 23"
-        android:layout_alignLeft="@id/firstNameTextView"
+        android:text="Age : --"
+        android:layout_marginLeft="20dp"
         android:layout_toRightOf="@id/heighttextview"
         android:layout_alignBottom="@id/playerphoto"/>
 
     <TextView
-        android:id="@+id/seasonaveragetextvuew"
+        android:id="@+id/seasonaveragetextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
@@ -104,20 +104,30 @@
         android:layout_below="@id/positiontextview"
         android:layout_marginTop="15dp"/>
     <TextView
+        android:id="@+id/mpgftpfgptextview"
+        android:layout_width="wrap_content"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/seasonaveragetextview"
+        />
+    <TextView
         android:id="@+id/ppgapgrpgtextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/seasonaveragetextvuew"
+        android:layout_below="@id/mpgftpfgptextview"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-        android:text="22.6 PPG   4.7 APG   5.5 RPG"
-        android:layout_marginTop="5dp"
+        android:text="--.- PPG   -.- APG   -.- RPG"
+        android:layout_marginTop="0dp"
         android:layout_centerHorizontal="true" />
     <TextView
         android:id="@+id/stealsblockstextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:layout_below="@+id/ppgapgrpgtextview"
         android:layout_centerHorizontal="true"
-        android:text="1.1 STL/G   0.7 BLK/G"/>
+        android:text="-.- STL/G   -.- BLK/G"/>
 </RelativeLayout>

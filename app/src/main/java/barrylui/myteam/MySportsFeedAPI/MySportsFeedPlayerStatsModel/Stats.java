@@ -7,6 +7,18 @@ public class Stats {
     @SerializedName("GamesPlayed")
     @Expose
     private GamesPlayed gamesPlayed;
+    @SerializedName("FgAtt")
+    @Expose
+    private FgAtt fgAtt;
+    @SerializedName("FgMade")
+    @Expose
+    private FgMade fgMade;
+    @SerializedName("FtAtt")
+    @Expose
+    private FtAtt ftAtt;
+    @SerializedName("FtMade")
+    @Expose
+    private FtMade ftMade;
     @SerializedName("RebPerGame")
     @Expose
     private RebPerGame rebPerGame;
@@ -22,6 +34,9 @@ public class Stats {
     @SerializedName("BlkPerGame")
     @Expose
     private BlkPerGame blkPerGame;
+    @SerializedName("MinSecondsPerGame")
+    @Expose
+    private MinSecondsPerGame minSecondsPerGame;
 
     public GamesPlayed getGamesPlayed() {
         return gamesPlayed;
@@ -29,6 +44,38 @@ public class Stats {
 
     public void setGamesPlayed(GamesPlayed gamesPlayed) {
         this.gamesPlayed = gamesPlayed;
+    }
+
+    public FgAtt getFgAtt() {
+        return fgAtt;
+    }
+
+    public void setFgAtt(FgAtt fgAtt) {
+        this.fgAtt = fgAtt;
+    }
+
+    public FgMade getFgMade() {
+        return fgMade;
+    }
+
+    public void setFgMade(FgMade fgMade) {
+        this.fgMade = fgMade;
+    }
+
+    public FtAtt getFtAtt() {
+        return ftAtt;
+    }
+
+    public void setFtAtt(FtAtt ftAtt) {
+        this.ftAtt = ftAtt;
+    }
+
+    public FtMade getFtMade() {
+        return ftMade;
+    }
+
+    public void setFtMade(FtMade ftMade) {
+        this.ftMade = ftMade;
     }
 
     public RebPerGame getRebPerGame() {
@@ -69,6 +116,14 @@ public class Stats {
 
     public void setBlkPerGame(BlkPerGame blkPerGame) {
         this.blkPerGame = blkPerGame;
+    }
+
+    public MinSecondsPerGame getMinSecondsPerGame() {
+        return minSecondsPerGame;
+    }
+
+    public void setMinSecondsPerGame(MinSecondsPerGame minSecondsPerGame) {
+        this.minSecondsPerGame = minSecondsPerGame;
     }
 
 }

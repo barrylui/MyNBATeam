@@ -15,7 +15,7 @@ import java.util.List;
 
 import barrylui.myteam.R;
 import barrylui.myteam.SuredBitsAPI.SuredBitsAPI;
-import barrylui.myteam.TeamLandingPage.InternetCheckerUtility;
+import barrylui.myteam.InternetCheckerUtility;
 import barrylui.myteam.SuredBitsAPI.SuredBitsPlayerModel.PlayerInfoModel;
 import retrofit2.Call;
 import retrofit2.Callback;

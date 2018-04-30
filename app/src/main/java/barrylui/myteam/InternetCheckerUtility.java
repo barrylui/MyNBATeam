@@ -1,4 +1,4 @@
-package barrylui.myteam.TeamLandingPage;
+package barrylui.myteam;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

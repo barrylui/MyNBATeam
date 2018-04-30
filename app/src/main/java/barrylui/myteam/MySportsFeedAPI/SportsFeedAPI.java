@@ -38,5 +38,5 @@ public interface SportsFeedAPI {
     @Headers("Content-type: application/json")
     @GET("roster_players.json?")
     Call<PlayerInfo> getPlayerInfo(@Query("fordate") String param1,
-                                   @Query("team") String param2);
+                                   @Query("player") String param2);
 }
