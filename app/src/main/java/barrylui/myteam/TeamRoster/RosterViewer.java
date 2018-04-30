@@ -46,10 +46,13 @@ public class RosterViewer extends AppCompatActivity {
         if(teamName.equals("OKL")){
             teamName = "OKC";
         }
+        if(teamName.equals("BRO")){
+            teamName = "BKN";
+        }
 
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
         Toolbar toolbar = (Toolbar) findViewById(R.id.rostertoolbar);
-        toolbarLogo = (ImageView)findViewById(R.id.toolbarlogo);
+        toolbarLogo = (ImageView)findViewById(R.id.rostertoolbarlogo);
         toolbarLogo.setImageResource(teamLogo);
         setSupportActionBar(toolbar);
         getSupportActionBar().setBackgroundDrawable(getDrawable(teamColors));

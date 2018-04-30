@@ -40,6 +40,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class TeamLandingPage extends AppCompatActivity{
 
+
     TextView franchiseName;
     TextView winstv;
     TextView losestv;
@@ -175,13 +176,13 @@ public class TeamLandingPage extends AppCompatActivity{
                     startActivity(rosterIntent);
                 }
             });
-            new AsyncFetchNBAData().execute();
+            new AsyncFetctTeamData().execute();
             infotv.setText("Team Profile");
 
         }
     }
 
-    private class AsyncFetchNBAData extends AsyncTask<Void, Void, Void>{
+    private class AsyncFetctTeamData extends AsyncTask<Void, Void, Void>{
         @Override
         protected void onPreExecute() {
 
