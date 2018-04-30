@@ -25,11 +25,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import barrylui.myteam.ChooseYourTeam;
-import barrylui.myteam.ConferenceTeamStandingsModel.Standings;
+import barrylui.myteam.MySportsFeedAPI.MySportsFeedTeamRankingsModel.Standings;
 import barrylui.myteam.R;
-import barrylui.myteam.RankingsModel.Rankings;
+import barrylui.myteam.TeamRankingsModel.Rankings;
 import barrylui.myteam.TeamRoster.RosterViewer;
-import barrylui.myteam.SportsFeedAPI;
+import barrylui.myteam.MySportsFeedAPI.SportsFeedAPI;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -171,6 +171,7 @@ public class TeamLandingPage extends AppCompatActivity{
                     rosterIntent.putExtra("TeamAbbrv", teamName);
                     rosterIntent.putExtra("TeamColor", teamcolors);
                     rosterIntent.putExtra("TeamLogo", teamlogo);
+                    Log.d(TAG, "onClick: " + teamName);
                     startActivity(rosterIntent);
                 }
             });

@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="barrylui.myteam">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -21,9 +21,9 @@
         </activity>
         <activity
             android:name=".TeamLandingPage.TeamLandingPage"
-            android:parentActivityName=".ChooseYourTeam"
-            />
+            android:parentActivityName=".ChooseYourTeam" />
         <activity android:name=".TeamRoster.RosterViewer" />
+        <activity android:name=".PlayerPage"></activity>
     </application>
 
 </manifest>

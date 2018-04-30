@@ -1,7 +1,9 @@
 package barrylui.myteam.TeamRoster;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,16 +13,17 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
+import barrylui.myteam.PlayerPage;
 import barrylui.myteam.R;
-import barrylui.myteam.TeamRoster.SuredBitsPlayerModel.PlayerInfoModel;
+import barrylui.myteam.SuredBitsAPI.SuredBitsPlayerModel.PlayerInfoModel;
+
 
 public class RosterViewerAdapter extends RecyclerView.Adapter<RosterViewerAdapter.RosterViewHolder>{
     private List<PlayerInfoModel> playerList = null;
     private Context mContext;
+    private static final String TAG = "RosterView";
     //OnItemClickListener mItemClickListener;
 
     public RosterViewerAdapter(Context context, List<PlayerInfoModel> list){
@@ -36,15 +39,34 @@ public class RosterViewerAdapter extends RecyclerView.Adapter<RosterViewerAdapte
     }
 
     @Override
-    public void onBindViewHolder(RosterViewHolder viewHolder, int position) {
-        String theFirstName = playerList.get(position).getFirstName();
-        String theLastName = playerList.get(position).getLastName();
+    public void onBindViewHolder(final RosterViewHolder viewHolder, final int position) {
+        final String theFirstName = playerList.get(position).getFirstName();
+        final String theLastName = playerList.get(position).getLastName();
+        final String teamId = playerList.get(position).getTeam();
+        Log.d(TAG, "onBindViewHolder: " + teamId);
         String playerId = String.valueOf(playerList.get(position).getPlayerId());
-        String url = "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/" + playerId + ".png";
+
+        final String url = "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/" + playerId + ".png";
         viewHolder.playerName.setText(theFirstName + " " + theLastName);
-        Context context = viewHolder.playerPhoto.getContext();
+        viewHolder.linearLayout.setTag(position);
+        final Context context = viewHolder.playerPhoto.getContext();
         Picasso.with(context).load(url).placeholder(R.drawable.default_nba_headshot_v2).error(R.drawable.default_nba_headshot_v2).into(viewHolder.playerPhoto);
+
+        viewHolder.linearLayout.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                int tag = (int)v.getTag();
+                Log.d(TAG, "onClick: " + tag);
+                Intent playerPageIntent = new Intent (v.getContext(), PlayerPage.class);
+                playerPageIntent.putExtra("firstName", theFirstName);
+                playerPageIntent.putExtra("lastName", theLastName);
+                playerPageIntent.putExtra("imageurl", url);
+                playerPageIntent.putExtra("teamid", teamId);
+                v.getContext().startActivity(playerPageIntent);
+            }
+        });
     }
+
 
 
     @Override
@@ -52,16 +74,31 @@ public class RosterViewerAdapter extends RecyclerView.Adapter<RosterViewerAdapte
         return playerList.size();
     }
 
-    public static class RosterViewHolder extends RecyclerView.ViewHolder
+    public static class RosterViewHolder extends RecyclerView.ViewHolder /*implements View.OnClickListener*/
     {
         ImageView playerPhoto;
         TextView playerName;
+        LinearLayout linearLayout;
+        //GradientDrawableDrawable circleBackground;
 
         public RosterViewHolder(View view)
         {
             super(view);
             playerPhoto = (ImageView) view.findViewById(R.id.playerHeadShot);
             playerName = (TextView)view.findViewById(R.id.nameTextView);
+            linearLayout = (LinearLayout)view.findViewById(R.id.cardview);
+            //view.setOnClickListener(this);
+
         }
+/*
+        @Override
+        public void onClick(View view){
+            int position = getLayoutPosition();
+            Toast.makeText(view.getContext(), "the position : " + position, Toast.LENGTH_SHORT).show();
+            Intent playerPageIntent = new Intent (view.getContext(), PlayerPage.class);
+            playerPageIntent.putExtra()
+        }
+
+        */
     }
 }

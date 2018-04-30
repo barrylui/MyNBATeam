@@ -14,8 +14,9 @@ import android.widget.Toast;
 import java.util.List;
 
 import barrylui.myteam.R;
+import barrylui.myteam.SuredBitsAPI.SuredBitsAPI;
 import barrylui.myteam.TeamLandingPage.InternetCheckerUtility;
-import barrylui.myteam.TeamRoster.SuredBitsPlayerModel.PlayerInfoModel;
+import barrylui.myteam.SuredBitsAPI.SuredBitsPlayerModel.PlayerInfoModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -42,6 +43,10 @@ public class RosterViewer extends AppCompatActivity {
         teamName = getIntent().getStringExtra("TeamAbbrv");
         teamColors = getIntent().getIntExtra("TeamColor",0);
         teamLogo = getIntent().getIntExtra("TeamLogo", 0);
+        if(teamName.equals("OKL")){
+            teamName = "OKC";
+        }
+
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
         Toolbar toolbar = (Toolbar) findViewById(R.id.rostertoolbar);
         toolbarLogo = (ImageView)findViewById(R.id.toolbarlogo);
@@ -64,7 +69,6 @@ public class RosterViewer extends AppCompatActivity {
             Toast.makeText(RosterViewer.this, "No Internet Connection", Toast.LENGTH_LONG).show();
         }
         else {
-            //new AsyncFetchDataAndLoadIntoPlayerList().execute();
             SuredBitsAPI suredBitsAPI = retrofit.create(SuredBitsAPI.class);
             Call<List<PlayerInfoModel>> call = suredBitsAPI.getTeamInfo(teamName);
             call.enqueue(new Callback<List<PlayerInfoModel>>() {
@@ -77,7 +81,6 @@ public class RosterViewer extends AppCompatActivity {
                     recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(),
                             LinearLayoutManager.VERTICAL,
                             false));
-
                 }
 
                 @Override

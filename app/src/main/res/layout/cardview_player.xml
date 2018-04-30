@@ -14,18 +14,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!--
-        <ImageView
-            android:layout_width="95dp"
-            android:layout_height="95dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:background="@drawable/round_circle_shape"/>
-            -->
         <ImageView 
             android:id="@+id/playerHeadShot"
-            android:layout_width="315px"
-            android:layout_height="230px"
+            android:layout_width="280px"
+            android:layout_height="204px"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="1dp"
             android:layout_alignParentLeft="true"
