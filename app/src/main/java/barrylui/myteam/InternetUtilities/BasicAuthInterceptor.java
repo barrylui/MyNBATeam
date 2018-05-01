@@ -1,4 +1,4 @@
-package barrylui.myteam;
+package barrylui.myteam.InternetUtilities;
 
 import java.io.IOException;
 import okhttp3.Credentials;

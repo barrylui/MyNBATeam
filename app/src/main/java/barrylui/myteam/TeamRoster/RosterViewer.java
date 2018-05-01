@@ -15,7 +15,7 @@ import java.util.List;
 
 import barrylui.myteam.R;
 import barrylui.myteam.SuredBitsAPI.SuredBitsAPI;
-import barrylui.myteam.InternetCheckerUtility;
+import barrylui.myteam.InternetUtilities.InternetCheckerUtility;
 import barrylui.myteam.SuredBitsAPI.SuredBitsPlayerModel.PlayerInfoModel;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,6 +43,8 @@ public class RosterViewer extends AppCompatActivity {
         teamName = getIntent().getStringExtra("TeamAbbrv");
         teamColors = getIntent().getIntExtra("TeamColor",0);
         teamLogo = getIntent().getIntExtra("TeamLogo", 0);
+
+        //change team abbr for okl and bro so the appreviations can be used to interact with mysportsfeed api
         if(teamName.equals("OKL")){
             teamName = "OKC";
         }

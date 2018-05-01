@@ -24,9 +24,9 @@ import com.github.mikephil.charting.data.RadarDataSet;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import barrylui.myteam.BasicAuthInterceptor;
+import barrylui.myteam.InternetUtilities.BasicAuthInterceptor;
 import barrylui.myteam.ChooseYourTeam;
-import barrylui.myteam.InternetCheckerUtility;
+import barrylui.myteam.InternetUtilities.InternetCheckerUtility;
 import barrylui.myteam.MySportsFeedAPI.MySportsFeedTeamRankingsModel.Standings;
 import barrylui.myteam.R;
 import barrylui.myteam.MySportsFeedAPI.MySportsFeedTeamRankingsModel.TeamRankingsModel.Rankings;
@@ -113,6 +113,7 @@ public class TeamLandingPage extends AppCompatActivity{
         teamConference = getIntent().getIntExtra("TeamConference", -1);
         int teamInsideRank = getIntent().getIntExtra("PtsInPaintRank", -1);
         numInside = 31-teamInsideRank;
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setBackgroundDrawable(getDrawable(teamcolors));
@@ -144,6 +145,7 @@ public class TeamLandingPage extends AppCompatActivity{
         teamRoster.setTextColor(Color.WHITE);
         infotv.setTextColor(Color.BLACK);
 
+        //Adjust imageview size for dallas because the dallas logo is not from nba.com
         ImageView iv = (ImageView)findViewById(R.id.teamlogo);
         iv.setImageResource(teamlogo);
         if(teamName.equals("DAL"))
@@ -166,6 +168,7 @@ public class TeamLandingPage extends AppCompatActivity{
                     Toast.makeText(TeamLandingPage.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
                 }
             });
+            //Disable team button
         }else{
             teamRoster.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -179,6 +182,7 @@ public class TeamLandingPage extends AppCompatActivity{
                 }
             });
             new AsyncFetctTeamData().execute();
+            //change textview from Loading to Team profile after data is loaded
             infotv.setText("Team Profile");
 
         }
@@ -208,6 +212,7 @@ public class TeamLandingPage extends AppCompatActivity{
                 Log.d(TAG, "onResponse: Server Response: " + response.toString());
 
 
+                //Bind data if connection to endpoint is succcessful
                 if(response.code()==200){
                     city = response.body().getConferenceteamstandings().getConference().get(teamConference).getTeamentry().get(0).getTeam().getCity();
                     name = response.body().getConferenceteamstandings().getConference().get(teamConference).getTeamentry().get(0).getTeam().getName();
@@ -246,6 +251,7 @@ public class TeamLandingPage extends AppCompatActivity{
                     teamranktv.setText(standingsRank);
                     teamranktv.setTextColor(getColor(teamcolors));
 
+                    //Get data to bind to radarchart
                     getTeamStatsRankAndBindData();
                 }
                 else{
@@ -265,13 +271,6 @@ public class TeamLandingPage extends AppCompatActivity{
         });
     }
 
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(this, ChooseYourTeam.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        finish();
-    }
 
     //Loads team's stats into an array and sorts the array
     //After sorting each team's stats, it can bind each stat to the chart based on their rank amongst other teams
@@ -286,6 +285,7 @@ public class TeamLandingPage extends AppCompatActivity{
                 Log.d(TAG, "onResponse: Server Response: " + response.toString());
 
                 if(response.code()==200){
+                    //Arrays to sort stats to get rank for each stat
                     double[] rankOffense = new double[30];
                     double[] rankDefense = new double[30];
                     double[] rankRebound = new double[30];
@@ -293,6 +293,7 @@ public class TeamLandingPage extends AppCompatActivity{
                     double[] rank3PTMade = new double[30];
                     int index = 0;
 
+                    //Load in eastern conference team statistics into the array then the western conference teams
                     for(int i =0; i<2;i++){
                         for (int j= 0; j<15;j++){
                             rankOffense[index] = Double.parseDouble(response.body().getConferenceteamstandings().getConference().get(i).getTeamentry().get(j).getStats().getPtsPerGame().getText());
@@ -303,12 +304,16 @@ public class TeamLandingPage extends AppCompatActivity{
                             index++;
                         }
                     }
+
+                    //sort array so team stats can be in order by rank
                     Arrays.sort(rankOffense);
                     Arrays.sort(rankDefense);
                     Arrays.sort(rankRebound);
                     Arrays.sort(rankAssists);
                     Arrays.sort(rank3PTMade);
 
+
+                    //Search for selected teama's stats and get the rank which is the index in array
                     for(int i=0; i<30; i++){
                         int offenseval = Double.compare(rankOffense[i],teamppg);
                         int defenseval = Double.compare(rankDefense[i],oppPPG);
@@ -334,6 +339,7 @@ public class TeamLandingPage extends AppCompatActivity{
                     }
                     int dRank = 31 - numDefense;
 
+                    //Load data into radar chart
                     ArrayList<Entry> entry1 = new ArrayList<>();
                     entry1.add(new Entry( numRebounds,0));
                     entry1.add(new Entry(numOffense,1));
@@ -342,6 +348,7 @@ public class TeamLandingPage extends AppCompatActivity{
                     entry1.add(new Entry(numInside,4));
                     entry1.add(new Entry(numThrees,5));
 
+                    //Label axis on radar chart
                     labels = new ArrayList<String>();
                     labels.add("Rebounds");
                     labels.add("Offense");
@@ -350,6 +357,7 @@ public class TeamLandingPage extends AppCompatActivity{
                     labels.add("Inside Scoring");
                     labels.add("3PT Scoring");
 
+                    //Setup radarchart settings and bind radar chart
                     RadarDataSet dataset1 = new RadarDataSet(entry1,"Player");
                     dataset1.setColor(getColor(teamcolors));
                     dataset1.setDrawFilled(true);
@@ -362,10 +370,12 @@ public class TeamLandingPage extends AppCompatActivity{
                     dataSets.add(dataset1);
                     RadarData theradardata = new RadarData(labels, dataSets);
                     radarChart.setData(theradardata);
-                    radarChart.setDescription("");
+
+                    //disable desciption
                     Legend l = radarChart.getLegend();
                     l.setEnabled(false);
 
+                    //Max is 30 because there are 30 nba teams. Each stat is ranked against other teams and can be plotted to see how good/bad a team is in a paticular category
                     YAxis yAxis = radarChart.getYAxis();
                     yAxis.resetAxisMaxValue();
                     yAxis.setAxisMaxValue(30);
@@ -392,5 +402,13 @@ public class TeamLandingPage extends AppCompatActivity{
                 infotv.setText("No data available");
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, ChooseYourTeam.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
     }
 }

@@ -1,4 +1,4 @@
-package barrylui.myteam;
+package barrylui.myteam.InternetUtilities;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

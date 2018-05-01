@@ -52,6 +52,7 @@ public class RosterViewerAdapter extends RecyclerView.Adapter<RosterViewerAdapte
         viewHolder.playerName.setText(theFirstName + " " + theLastName);
         viewHolder.linearLayout.setTag(position);
         final Context context = viewHolder.playerPhoto.getContext();
+        //Load default heaadshot if player does not have offical picture
         Picasso.with(context).load(url).placeholder(R.drawable.default_nba_headshot_v2).error(R.drawable.default_nba_headshot_v2).into(viewHolder.playerPhoto);
 
         viewHolder.linearLayout.setOnClickListener(new View.OnClickListener(){
@@ -83,24 +84,13 @@ public class RosterViewerAdapter extends RecyclerView.Adapter<RosterViewerAdapte
         LinearLayout linearLayout;
         //GradientDrawableDrawable circleBackground;
 
-        public RosterViewHolder(View view)
-        {
+        public RosterViewHolder(View view) {
             super(view);
             playerPhoto = (ImageView) view.findViewById(R.id.playerHeadShot);
-            playerName = (TextView)view.findViewById(R.id.nameTextView);
-            linearLayout = (LinearLayout)view.findViewById(R.id.cardview);
+            playerName = (TextView) view.findViewById(R.id.nameTextView);
+            linearLayout = (LinearLayout) view.findViewById(R.id.cardview);
             //view.setOnClickListener(this);
 
         }
-/*
-        @Override
-        public void onClick(View view){
-            int position = getLayoutPosition();
-            Toast.makeText(view.getContext(), "the position : " + position, Toast.LENGTH_SHORT).show();
-            Intent playerPageIntent = new Intent (view.getContext(), PlayerPage.class);
-            playerPageIntent.putExtra()
-        }
-
-        */
     }
 }

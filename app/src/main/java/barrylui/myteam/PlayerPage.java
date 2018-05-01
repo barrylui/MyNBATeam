@@ -25,6 +25,8 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 
+import barrylui.myteam.InternetUtilities.BasicAuthInterceptor;
+import barrylui.myteam.InternetUtilities.InternetCheckerUtility;
 import barrylui.myteam.MySportsFeedAPI.MySportsFeedPlayerInfoModel.PlayerInfo;
 import barrylui.myteam.MySportsFeedAPI.MySportsFeedPlayerStatsModel.PlayerStats;
 import barrylui.myteam.MySportsFeedAPI.SportsFeedAPI;
@@ -78,6 +80,7 @@ public class PlayerPage extends AppCompatActivity {
         setContentView(R.layout.activity_player_page);
 
 
+        //ColorMap to get theme color according to team abbreviation passed to this intent
         colorMap.put("MIL", R.color.colorBucksPrimary);
         colorMap.put("CHI", R.color.colorBullsPrimary);
         colorMap.put("CLE", R.color.colorCavaliersPrimary);
@@ -116,6 +119,16 @@ public class PlayerPage extends AppCompatActivity {
         String imageurl = getIntent().getStringExtra("imageurl");
         String teamidsuredbits = getIntent().getStringExtra("teamid");
 
+        //fix team appreviations for mysportsfeedapi
+        if (teamidsuredbits.equals("OKC")){
+            mysportsteamid = "OKL";
+        } else if (teamidsuredbits.equals("BKN")){
+            mysportsteamid = "BRO";
+        } else{
+            mysportsteamid = teamidsuredbits;
+        }
+
+
         mysportsfeedFirstName = suredBitsFirstName;
         mysportsfeedLastName = suredBitsLastName;
 
@@ -128,17 +141,19 @@ public class PlayerPage extends AppCompatActivity {
         firstNametextview.setText(suredBitsFirstName);
         lastNametextview.setText(suredBitsLastName);
 
+        //Replace certain chars that are returned by the suredbitsAPI.
+        //removes occurences of " ", "'", "." in names so mysportsfeedapi can return data
         mysportsfeedFirstName = mysportsfeedFirstName.replace(" ", "");
         mysportsfeedFirstName = mysportsfeedFirstName.replace("-", "");
         mysportsfeedFirstName = mysportsfeedFirstName.replace("'", "");
         mysportsfeedFirstName = mysportsfeedFirstName.replace(".", "");
-        Log.d(TAG, "onCreate: " + mysportsfeedFirstName);
 
         mysportsfeedLastName = mysportsfeedLastName.replace(" ","");
         mysportsfeedLastName = mysportsfeedLastName.replace("'", "");
         mysportsfeedLastName = mysportsfeedLastName.replace("-", "");
         mysportsfeedLastName = mysportsfeedLastName.replace(".", "");
-        Log.d(TAG, "onCreate: " + mysportsfeedLastName);
+
+
 
         radarChart = (RadarChart)findViewById(R.id.playerradarchart);
 
@@ -180,13 +195,6 @@ public class PlayerPage extends AppCompatActivity {
         ImageView playerPhoto = (ImageView)findViewById(R.id.playerphoto);
         Picasso.with(this).load(imageurl).placeholder(R.drawable.default_nba_headshot_v2).error(R.drawable.default_nba_headshot_v2).into(playerPhoto);
 
-        if (teamidsuredbits.equals("OKC")){
-            mysportsteamid = "OKL";
-        } else if (teamidsuredbits.equals("BKN")){
-            mysportsteamid = "BRO";
-        } else{
-            mysportsteamid = teamidsuredbits;
-        }
 
 
         //Call roster players api
