@@ -130,4 +130,10 @@
         android:layout_below="@+id/ppgapgrpgtextview"
         android:layout_centerHorizontal="true"
         android:text="-.- STL/G   -.- BLK/G"/>
+    <com.github.mikephil.charting.charts.RadarChart
+        android:id="@+id/playerradarchart"
+        android:layout_width="270dp"
+        android:layout_height="270dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
 </RelativeLayout>

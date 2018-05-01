@@ -1,9 +1,9 @@
 package barrylui.myteam.MySportsFeedAPI;
 
 import barrylui.myteam.MySportsFeedAPI.MySportsFeedPlayerInfoModel.PlayerInfo;
-import barrylui.myteam.MySportsFeedAPI.MySportsFeedPlayerStatsModel.PlayerStatsPerGame;
+import barrylui.myteam.MySportsFeedAPI.MySportsFeedPlayerStatsModel.PlayerStats;
 import barrylui.myteam.MySportsFeedAPI.MySportsFeedTeamRankingsModel.Standings;
-import barrylui.myteam.TeamRankingsModel.Rankings;
+import barrylui.myteam.MySportsFeedAPI.MySportsFeedTeamRankingsModel.TeamRankingsModel.Rankings;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -32,8 +32,11 @@ public interface SportsFeedAPI {
     @Headers("Content-type: application/json")
     @GET("cumulative_player_stats.json?")
     //player=Kristaps-Porzingis&playerstats=PTS/G,AST/G,REB/G,STL/G,BS/G/
-    Call<PlayerStatsPerGame> getPlayerStatsPerGame(@Query("player") String param1,
-                                                   @Query("playerstats") String param2);
+    Call<PlayerStats> getPlayerStatsPerGame(@Query("player") String param1,
+                                            @Query("playerstats") String param2);
+    @Headers("Content-type: application/json")
+    @GET("cumulative_player_stats.json?")
+    Call<PlayerStats> getAllPlayerStats(@Query("playerstats") String param1);
 
     @Headers("Content-type: application/json")
     @GET("roster_players.json?")

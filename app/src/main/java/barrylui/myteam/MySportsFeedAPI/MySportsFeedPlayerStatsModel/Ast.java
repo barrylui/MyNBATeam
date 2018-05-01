@@ -1,10 +1,9 @@
-package barrylui.myteam.TeamRankingsModel;
-
+package barrylui.myteam.MySportsFeedAPI.MySportsFeedPlayerStatsModel;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class PtsAgainstPerGame {
+public class Ast {
 
     @SerializedName("@category")
     @Expose

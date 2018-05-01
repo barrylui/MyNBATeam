@@ -13,8 +13,4 @@ public interface SuredBitsAPI {
 
     @GET("players/{team}")
     Call<List<PlayerInfoModel>> getTeamInfo(@Path("team") String team);
-
-    @GET("stats/{lastname}/{firstname}/2018")
-    Call<List<PlayerInfoModel>> getPlayerStats(@Path("lastname") String lastName,
-                                         @Path("firstname") String firstName);
 }

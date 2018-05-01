@@ -29,7 +29,7 @@ import barrylui.myteam.ChooseYourTeam;
 import barrylui.myteam.InternetCheckerUtility;
 import barrylui.myteam.MySportsFeedAPI.MySportsFeedTeamRankingsModel.Standings;
 import barrylui.myteam.R;
-import barrylui.myteam.TeamRankingsModel.Rankings;
+import barrylui.myteam.MySportsFeedAPI.MySportsFeedTeamRankingsModel.TeamRankingsModel.Rankings;
 import barrylui.myteam.TeamRoster.RosterViewer;
 import barrylui.myteam.MySportsFeedAPI.SportsFeedAPI;
 import okhttp3.OkHttpClient;
@@ -348,7 +348,7 @@ public class TeamLandingPage extends AppCompatActivity{
                     labels.add("Defense");
                     labels.add("Assists");
                     labels.add("Inside Scoring");
-                    labels.add("3PT");
+                    labels.add("3PT Scoring");
 
                     RadarDataSet dataset1 = new RadarDataSet(entry1,"Player");
                     dataset1.setColor(getColor(teamcolors));

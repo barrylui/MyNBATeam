@@ -1,9 +1,9 @@
-package barrylui.myteam.TeamRankingsModel;
+package barrylui.myteam.MySportsFeedAPI.MySportsFeedPlayerStatsModel;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Fg3PtMadePerGame {
+public class MinSeconds {
 
     @SerializedName("@category")
     @Expose

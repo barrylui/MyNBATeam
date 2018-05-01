@@ -1,9 +1,10 @@
-package barrylui.myteam.TeamRankingsModel;
+package barrylui.myteam.MySportsFeedAPI.MySportsFeedPlayerStatsModel;
+
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class AstPerGame {
+public class Stl {
 
     @SerializedName("@category")
     @Expose

@@ -1,4 +1,4 @@
-package barrylui.myteam.TeamRankingsModel;
+package barrylui.myteam.MySportsFeedAPI.MySportsFeedTeamRankingsModel.TeamRankingsModel;
 
 
 import com.google.gson.annotations.Expose;
