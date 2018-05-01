@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.ViewManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,6 +52,7 @@ public class PlayerPage extends AppCompatActivity {
     TextView lastNametextview;
     TextView positiontextview;
     TextView heighttextview;
+    TextView seasonaveragestextview;
     TextView agetextview;
     TextView ppgapgrpgtextview;
     TextView stealsblockstextview;
@@ -140,7 +142,7 @@ public class PlayerPage extends AppCompatActivity {
 
         radarChart = (RadarChart)findViewById(R.id.playerradarchart);
 
-        TextView seasonaveragestextview = (TextView) findViewById(R.id.seasonaveragetextview);
+        seasonaveragestextview = (TextView) findViewById(R.id.seasonaveragetextview);
         agetextview = (TextView)findViewById(R.id.agetextview);
         ppgapgrpgtextview = (TextView)findViewById(R.id.ppgapgrpgtextview);
         stealsblockstextview = (TextView)findViewById(R.id.stealsblockstextview);
@@ -287,6 +289,9 @@ public class PlayerPage extends AppCompatActivity {
                     String ftpercentage = decimalFormat.format(ftpercent);
                     minutesfreethrowsfieldgoalspergame.setText(minutespergame + " MPG  " + ftpercentage + "% FT  " + fgpercentage + "% FG");
 
+
+                    seasonaveragestextview.setText("Season Averages");
+
                     int min36InSecs = 2160;
                     int totalseconds = Integer.parseInt(response.body().getCumulativeplayerstats().getPlayerstatsentry().get(0).getStats().getMinSeconds().getText());
                     int totalpoints = Integer.parseInt(response.body().getCumulativeplayerstats().getPlayerstatsentry().get(0).getStats().getPts().getText());
@@ -429,6 +434,8 @@ public class PlayerPage extends AppCompatActivity {
 
                     radarChart.notifyDataSetChanged();
                     radarChart.invalidate();
+                    TextView loadingtextview = (TextView)findViewById(R.id.loadingtextview);
+                    ((ViewManager)loadingtextview.getParent()).removeView(loadingtextview);
                 }
                 else{
                     Log.d(TAG, "onResponse: Server Response " + response.toString());
