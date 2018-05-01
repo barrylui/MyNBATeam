@@ -225,7 +225,8 @@ public class PlayerPage extends AppCompatActivity {
         //Get Player Vital info
         String name =  mysportsfeedFirstName + "-" + mysportsfeedLastName;
         Calendar calendar = Calendar.getInstance();
-        String date = String.valueOf(calendar.get(Calendar.MONTH))+String.valueOf(calendar.get(Calendar.DAY_OF_MONTH))+String.valueOf(calendar.get(Calendar.YEAR));
+        //String date = String.valueOf(calendar.get(Calendar.MONTH))+String.valueOf(calendar.get(Calendar.DAY_OF_MONTH))+String.valueOf(calendar.get(Calendar.YEAR));
+        String date = "20180420";
         Call<PlayerInfo> call = sportsFeedAPI.getPlayerInfo(date, name);
         call.enqueue(new Callback<PlayerInfo>() {
             @Override
@@ -352,7 +353,7 @@ public class PlayerPage extends AppCompatActivity {
 
     public void getPlayerStatsRankAndBindToChart(){
         SportsFeedAPI sportsFeedAPI = retrofit.create(SportsFeedAPI.class);
-        String params = "PTS/G,AST/G,REB/G,STL/G,BS/G";
+        String params = "PTS/G,AST/G,REB/G,STL/G,BS/G,FTA,FTM";
         Call<PlayerStats> call = sportsFeedAPI.getAllPlayerStats(params);
 
         call.enqueue(new Callback<PlayerStats>() {
@@ -368,7 +369,6 @@ public class PlayerPage extends AppCompatActivity {
                     double[] rankBSG = new double[616];
 
                     for(int i =0; i<rankPPG.length;i++) {
-                        double min36InSecs = 2160;
                         rankPPG[i] = Double.parseDouble(response.body().getCumulativeplayerstats().getPlayerstatsentry().get(i).getStats().getPtsPerGame().getText());
                         rankAPG[i] = Double.parseDouble(response.body().getCumulativeplayerstats().getPlayerstatsentry().get(i).getStats().getAstPerGame().getText());
                         rankRPG[i] = Double.parseDouble(response.body().getCumulativeplayerstats().getPlayerstatsentry().get(i).getStats().getRebPerGame().getText());
@@ -395,20 +395,15 @@ public class PlayerPage extends AppCompatActivity {
                     double reboundMultiplicationFactor = (double)100/reboundLeaderValue;
                     double stealsMultiplicationFactor = (double)100/stealsLeaderValue;
                     double blocksMultiplicationFactor = (double)100/blocksLeaderValue;
+                    double freeThrowMultiplicationFactor = (double)100/(double)55;
 
                     double pointValue = Double.parseDouble(pointspergame) * pointMultiplicationFactor;
                     double assistValue = Double.parseDouble(assistspergame) * assistsMultiplicationFactor;
                     double reboundVale = Double.parseDouble(reboundspergame) * reboundMultiplicationFactor;
                     double stealsValue = Double.parseDouble(stealspergame) * stealsMultiplicationFactor;
                     double blocksValue = Double.parseDouble(blockspergame) * blocksMultiplicationFactor;
-
-                    ArrayList<Entry> entry1 = new ArrayList<>();
-                    entry1.add(new Entry((float)pointValue,0));
-                    entry1.add(new Entry((float)assistValue,1));
-                    entry1.add(new Entry((float)reboundVale,2));
-                    entry1.add(new Entry((float)stealsValue,3));
-                    entry1.add(new Entry((float)blocksValue,4));
-                    entry1.add(new Entry((float)ftpercent,5));
+                    double freethrow = ftpercent - (double)40;
+                    double freeThrowValue = freethrow * freeThrowMultiplicationFactor;
 
                     labels = new ArrayList<String>();
                     labels.add("Scoring");
@@ -417,6 +412,16 @@ public class PlayerPage extends AppCompatActivity {
                     labels.add("Steals");
                     labels.add("Blocks");
                     labels.add("Free Throws");
+
+                    ArrayList<Entry> entry1 = new ArrayList<>();
+                    entry1.add(new Entry((float)pointValue,0));
+                    entry1.add(new Entry((float)assistValue,1));
+                    entry1.add(new Entry((float)reboundVale,2));
+                    entry1.add(new Entry((float)stealsValue,3));
+                    entry1.add(new Entry((float)blocksValue,4));
+                    entry1.add(new Entry((float)freeThrowValue,5));
+
+
 
                     RadarDataSet dataset1 = new RadarDataSet(entry1,"Player");
                     dataset1.setColor((teamcolor));

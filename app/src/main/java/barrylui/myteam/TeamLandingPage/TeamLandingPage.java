@@ -373,6 +373,7 @@ public class TeamLandingPage extends AppCompatActivity{
 
                     //disable desciption
                     Legend l = radarChart.getLegend();
+                    radarChart.setDescription("");
                     l.setEnabled(false);
 
                     //Max is 30 because there are 30 nba teams. Each stat is ranked against other teams and can be plotted to see how good/bad a team is in a paticular category
