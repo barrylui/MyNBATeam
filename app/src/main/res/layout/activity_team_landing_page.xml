@@ -54,7 +54,7 @@
         android:textSize="38dp"
         android:layout_marginTop="30dp"
         android:text=""
-        android:layout_marginRight="25dp"/>
+        android:layout_marginRight="30dp"/>
 
     <TextView
         android:id="@+id/dashTextView"
@@ -94,7 +94,7 @@
         android:layout_below="@id/teamStanding"
         android:layout_marginTop="30dp"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="17dp"/>
+        android:layout_marginRight="25dp"/>
     <TextView
         android:id="@+id/oppgtextview"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
@@ -102,7 +102,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/ppgtextview"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="17dp"/>
+        android:layout_marginRight="25dp"/>
     <TextView
         android:id="@+id/apgtextview"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
@@ -110,7 +110,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/oppgtextview"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="17dp"/>
+        android:layout_marginRight="25dp"/>
     <TextView
         android:id="@+id/rpgtextview"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
@@ -118,7 +118,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/apgtextview"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="17dp"/>
+        android:layout_marginRight="25dp"/>
     <TextView
         android:id="@+id/textview3pa"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
@@ -126,14 +126,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/rpgtextview"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="17dp"/>
+        android:layout_marginRight="25dp"/>
     <TextView
         android:id="@+id/textview3pp"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="17dp"/>
+        android:layout_marginRight="25dp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
