@@ -7,8 +7,11 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.util.List;
@@ -32,7 +35,6 @@ public class RosterViewer extends AppCompatActivity {
     String teamName;
     int  teamColors;
     int teamLogo;
-    LinearLayout linearLayout;
     private static final String TAG = "RosterView";
     ImageView toolbarLogo;
 
@@ -53,6 +55,12 @@ public class RosterViewer extends AppCompatActivity {
         }
 
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
+
+        Window window = this.getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(getColor(teamColors));
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.rostertoolbar);
         toolbarLogo = (ImageView)findViewById(R.id.rostertoolbarlogo);
         toolbarLogo.setImageResource(teamLogo);

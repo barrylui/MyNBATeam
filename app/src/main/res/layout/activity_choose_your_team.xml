@@ -6,13 +6,6 @@
     android:paddingRight="16dp"
     android:background="#000000">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="75dp"
-        android:layout_height="128dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        app:srcCompat="@drawable/nbalogo" />
 
     <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -22,7 +15,7 @@
         android:layout_gravity="center"
         android:columnCount="5"
         android:orientation="horizontal"
-        android:background="#ffffff"
+        android:background="#000000"
         android:layout_centerInParent="true">
 
         <Button
@@ -209,6 +202,16 @@
             android:background="@drawable/ic_wizardslogo"/>
     </GridLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/GridLayout"
+        android:layout_marginBottom="25dp"
+        android:textSize="29dp"
+        android:background="#000000"
+        android:textColor="#ffffff"
+        android:text="SELECT A TEAM"/>
 
 </RelativeLayout>
 

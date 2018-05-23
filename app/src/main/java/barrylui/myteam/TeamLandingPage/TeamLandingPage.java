@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -71,12 +73,12 @@ public class TeamLandingPage extends AppCompatActivity{
     Double teamrpg;
     Double team3pt;
 
-    int numInside;
-    int numOffense;
-    int numDefense;
-    int numRebounds;
-    int numPassing;
-    int numThrees;
+    int rankInside;
+    int rankOffense;
+    int rankDefense;
+    int rankRebounds;
+    int rankPassing;
+    int rankThrees;
 
     ArrayList<String> labels;
 
@@ -92,18 +94,6 @@ public class TeamLandingPage extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_team_landing_page);
 
-        client = new OkHttpClient.Builder()
-                .addInterceptor(new BasicAuthInterceptor(getString(R.string.username), getString(R.string.password)))
-                .build();
-
-        String BASE_URL = "https://api.mysportsfeeds.com/v1.2/pull/nba/2017-2018-regular/";
-
-        retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
 
 
         int teamid = getIntent().getIntExtra("TeamID",0);
@@ -112,7 +102,15 @@ public class TeamLandingPage extends AppCompatActivity{
         teamName = getIntent().getStringExtra("TeamName");
         teamConference = getIntent().getIntExtra("TeamConference", -1);
         int teamInsideRank = getIntent().getIntExtra("PtsInPaintRank", -1);
-        numInside = 31-teamInsideRank;
+        rankInside = 31-teamInsideRank;
+
+
+        //Change status bar to match team color
+        Window window = this.getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(getColor(teamcolors));
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -144,6 +142,8 @@ public class TeamLandingPage extends AppCompatActivity{
         teamRoster.setBackgroundColor(getColor(teamcolors));
         teamRoster.setTextColor(Color.WHITE);
         infotv.setTextColor(Color.BLACK);
+        infotv.setText("Loading...");
+        teamranktv.setText("Loading...");
 
         //Adjust imageview size for dallas because the dallas logo is not from nba.com
         ImageView iv = (ImageView)findViewById(R.id.teamlogo);
@@ -156,6 +156,19 @@ public class TeamLandingPage extends AppCompatActivity{
             iv.setScaleType(ImageView.ScaleType.FIT_XY);
         }
 
+
+
+        client = new OkHttpClient.Builder()
+                .addInterceptor(new BasicAuthInterceptor(getString(R.string.username), getString(R.string.password)))
+                .build();
+
+        String BASE_URL = "https://api.mysportsfeeds.com/v1.2/pull/nba/2017-2018-regular/";
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
         //Check if there is internet connection
         if(InternetCheckerUtility.isNetworkAvailable(TeamLandingPage.this)==false){
@@ -182,8 +195,6 @@ public class TeamLandingPage extends AppCompatActivity{
                 }
             });
             new AsyncFetctTeamData().execute();
-            //change textview from Loading to Team profile after data is loaded
-            infotv.setText("Team Profile");
 
         }
     }
@@ -322,31 +333,31 @@ public class TeamLandingPage extends AppCompatActivity{
                         int threesval = Double.compare(rank3PTMade[i], team3pt);
 
                         if (offenseval == 0){
-                             numOffense = i;
+                             TeamLandingPage.this.rankOffense = i;
                         }
                         if (defenseval == 0){
-                            numDefense = i;
+                            TeamLandingPage.this.rankDefense = i;
                         }
                         if (reboundval == 0){
-                            numRebounds = i;
+                            rankRebounds = i;
                         }
                         if (passingval == 0){
-                            numPassing = i;
+                            rankPassing = i;
                         }
                         if (threesval == 0){
-                            numThrees = i;
+                            rankThrees = i;
                         }
                     }
-                    int dRank = 31 - numDefense;
+                    int dRank = 31 - TeamLandingPage.this.rankDefense;
 
                     //Load data into radar chart
                     ArrayList<Entry> entry1 = new ArrayList<>();
-                    entry1.add(new Entry( numRebounds,0));
-                    entry1.add(new Entry(numOffense,1));
+                    entry1.add(new Entry(rankRebounds,0));
+                    entry1.add(new Entry(TeamLandingPage.this.rankOffense,1));
                     entry1.add(new Entry(dRank,2));
-                    entry1.add(new Entry(numPassing,3));
-                    entry1.add(new Entry(numInside,4));
-                    entry1.add(new Entry(numThrees,5));
+                    entry1.add(new Entry(rankPassing,3));
+                    entry1.add(new Entry(rankInside,4));
+                    entry1.add(new Entry(rankThrees,5));
 
                     //Label axis on radar chart
                     labels = new ArrayList<String>();
@@ -385,9 +396,7 @@ public class TeamLandingPage extends AppCompatActivity{
 
                     radarChart.notifyDataSetChanged();
                     radarChart.invalidate();
-
-
-
+                    infotv.setText("Team Profile");
 
                 }
                 else{

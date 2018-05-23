@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -82,6 +83,7 @@ public class RosterViewerAdapter extends RecyclerView.Adapter<RosterViewerAdapte
         ImageView playerPhoto;
         TextView playerName;
         LinearLayout linearLayout;
+        RelativeLayout relativeLayout;
         //GradientDrawableDrawable circleBackground;
 
         public RosterViewHolder(View view) {
