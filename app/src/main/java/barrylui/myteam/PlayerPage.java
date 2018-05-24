@@ -167,16 +167,16 @@ public class PlayerPage extends AppCompatActivity {
         minutesfreethrowsfieldgoalspergame = (TextView)findViewById(R.id.mpgftpfgptextview);
 
         teamcolor = getColor(colorMap.get(teamidsuredbits));
-        firstNametextview.setTextColor(teamcolor);
-        lastNametextview.setTextColor(teamcolor);
+        firstNametextview.setTextColor(Color.WHITE);
+        lastNametextview.setTextColor(Color.WHITE);
         jerseyNumbertextview.setTextColor(teamcolor);
-        positiontextview.setTextColor(teamcolor);
-        heighttextview.setTextColor(teamcolor);
-        agetextview.setTextColor(teamcolor);
-        seasonaveragestextview.setTextColor(teamcolor);
-        ppgapgrpgtextview.setTextColor(teamcolor);
-        stealsblockstextview.setTextColor(teamcolor);
-        minutesfreethrowsfieldgoalspergame.setTextColor(teamcolor);
+        positiontextview.setTextColor(Color.WHITE);
+        heighttextview.setTextColor(Color.WHITE);
+        agetextview.setTextColor(Color.WHITE);
+        seasonaveragestextview.setTextColor(Color.WHITE);
+        ppgapgrpgtextview.setTextColor(Color.WHITE);
+        stealsblockstextview.setTextColor(Color.WHITE);
+        minutesfreethrowsfieldgoalspergame.setTextColor(Color.WHITE);
 
         TextView playertoolbartextview = (TextView)findViewById(R.id.playertoolbartextview);
         playertoolbartextview.setText(suredBitsFirstName + " " + suredBitsLastName);
