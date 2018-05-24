@@ -74,11 +74,11 @@ public class TeamLandingPage extends AppCompatActivity{
     Double team3pt;
 
     int rankInside;
-    int rankOffense;
-    int rankDefense;
-    int rankRebounds;
-    int rankPassing;
-    int rankThrees;
+    int offenseRadarValue;
+    int defenseRadarValue;
+    int reboundsRadarValue;
+    int passingRadarValue;
+    int threesRadarValue;
 
     ArrayList<String> labels;
 
@@ -128,8 +128,7 @@ public class TeamLandingPage extends AppCompatActivity{
         oppgtv = (TextView)findViewById(R.id.oppgtextview);
         apgtv = (TextView)findViewById(R.id.apgtextview);
         rpgtv =(TextView)findViewById(R.id.rpgtextview);
-        tpatv = (TextView)findViewById(R.id.textview3pa);
-        tpptv = (TextView)findViewById(R.id.textview3pp);
+        tpatv = (TextView)findViewById(R.id.textview3pm);
         teamranktv = (TextView)findViewById(R.id.teamStanding);
         infotv = (TextView)findViewById(R.id.infoTextView);
         teamRoster = (Button)findViewById(R.id.teamRosterButton) ;
@@ -147,7 +146,6 @@ public class TeamLandingPage extends AppCompatActivity{
         apgtv.setTextColor(Color.WHITE);
         rpgtv.setTextColor(Color.WHITE);
         tpatv.setTextColor(Color.WHITE);
-        tpptv.setTextColor(Color.WHITE);
 
         if(teamName.equals("BRO")  || teamName.equals("SAS")){
             teamRoster.setTextColor(Color.BLACK);
@@ -254,19 +252,14 @@ public class TeamLandingPage extends AppCompatActivity{
                     losestv.setText(numberOfLoses);
 
                     teamppg = Double.parseDouble(response.body().getConferenceteamstandings().getConference().get(teamConference).getTeamentry().get(0).getStats().getPtsPerGame().get(0).getText());
-                    ppgtv.setText(teamppg + " Points Per Game");
 
                     oppPPG = Double.parseDouble(response.body().getConferenceteamstandings().getConference().get(teamConference).getTeamentry().get(0).getStats().getPtsAgainstPerGame().getText());
-                    oppgtv.setText(oppPPG + " Opponents PPG");
 
                     teamapg = Double.parseDouble(response.body().getConferenceteamstandings().getConference().get(teamConference).getTeamentry().get(0).getStats().getAstPerGame().getText());
-                    apgtv.setText(teamapg + " Assists Per Game");
 
                     teamrpg = Double.parseDouble(response.body().getConferenceteamstandings().getConference().get(teamConference).getTeamentry().get(0).getStats().getRebPerGame().getText());
-                    rpgtv.setText(teamrpg + " Rebounds Per Game" );
 
                     team3pt = Double.parseDouble(response.body().getConferenceteamstandings().getConference().get(teamConference).getTeamentry().get(0).getStats().getFg3PtMadePerGame().getText());
-                    tpatv.setText(team3pt + " 3Pt Made Per Game");
 
                     standingsRank = response.body().getConferenceteamstandings().getConference().get(teamConference).getTeamentry().get(0).getRank();
                     String conference;
@@ -341,7 +334,7 @@ public class TeamLandingPage extends AppCompatActivity{
                     Arrays.sort(rank3PTMade);
 
 
-                    //Search for selected teama's stats and get the rank which is the index in array
+                    //Search for selected teaM's stats and get the rank which is the index in array
                     for(int i=0; i<30; i++){
                         int offenseval = Double.compare(rankOffense[i],teamppg);
                         int defenseval = Double.compare(rankDefense[i],oppPPG);
@@ -350,31 +343,41 @@ public class TeamLandingPage extends AppCompatActivity{
                         int threesval = Double.compare(rank3PTMade[i], team3pt);
 
                         if (offenseval == 0){
-                             TeamLandingPage.this.rankOffense = i;
+                             offenseRadarValue = i;
+                             int offensiveRank = 30 - offenseRadarValue;
+                             ppgtv.setText(String.valueOf(offensiveRank));
                         }
                         if (defenseval == 0){
-                            TeamLandingPage.this.rankDefense = i;
+                            defenseRadarValue = i;
+                            int defenseRank = defenseRadarValue;
+                            oppgtv.setText(String.valueOf(defenseRank));
                         }
                         if (reboundval == 0){
-                            rankRebounds = i;
+                            reboundsRadarValue = i;
+                            int reboundRank = 30 - reboundsRadarValue;
+                            rpgtv.setText(String.valueOf(reboundRank));
                         }
                         if (passingval == 0){
-                            rankPassing = i;
+                            passingRadarValue = i;
+                            int assistRank = 30 - passingRadarValue;
+                            apgtv.setText(String.valueOf(assistRank));
                         }
                         if (threesval == 0){
-                            rankThrees = i;
+                            threesRadarValue = i;
+                            int threesRank = 30 - threesRadarValue;
+                            tpatv.setText(String.valueOf(threesRank));
                         }
                     }
-                    int dRank = 31 - TeamLandingPage.this.rankDefense;
+                    int dRank = 31 - TeamLandingPage.this.defenseRadarValue;
 
                     //Load data into radar chart
                     ArrayList<Entry> entry1 = new ArrayList<>();
-                    entry1.add(new Entry(rankRebounds,0));
-                    entry1.add(new Entry(TeamLandingPage.this.rankOffense,1));
+                    entry1.add(new Entry(reboundsRadarValue,0));
+                    entry1.add(new Entry(TeamLandingPage.this.offenseRadarValue,1));
                     entry1.add(new Entry(dRank,2));
-                    entry1.add(new Entry(rankPassing,3));
+                    entry1.add(new Entry(passingRadarValue,3));
                     entry1.add(new Entry(rankInside,4));
-                    entry1.add(new Entry(rankThrees,5));
+                    entry1.add(new Entry(threesRadarValue,5));
 
                     //Label axis on radar chart
                     labels = new ArrayList<String>();

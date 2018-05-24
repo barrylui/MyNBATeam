@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@id/teamlogo"
-        android:textSize="38dp"
+        android:textSize="40dp"
         android:layout_marginTop="30dp"
         android:text=""
         android:layout_marginRight="30dp"/>
@@ -62,7 +62,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="-"
-        android:textSize="38dp"
+        android:textSize="40dp"
         android:layout_toLeftOf="@id/numLosesTextView"
         android:layout_alignBottom="@id/numLosesTextView"
         android:layout_marginRight="10dp"/>
@@ -72,7 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@id/dashTextView"
         android:layout_alignBottom="@id/dashTextView"
-        android:textSize="38dp"
+        android:textSize="40dp"
         android:layout_marginRight="10dp"
         android:text=""/>
 
@@ -84,9 +84,7 @@
         android:layout_alignRight="@id/numLosesTextView"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:layout_below="@id/dashTextView"
-        android:text="Loading..."
-
-        />
+        android:text="Loading..." />
 
     <TextView
         android:id="@+id/ppgtextview"
@@ -95,47 +93,35 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/teamStanding"
         android:layout_marginTop="30dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="25dp"/>
+        android:layout_alignRight="@id/numLosesTextView" />
     <TextView
         android:id="@+id/oppgtextview"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/ppgtextview"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="25dp"/>
-    <TextView
-        android:id="@+id/apgtextview"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/oppgtextview"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="25dp"/>
+        android:layout_alignRight="@id/numLosesTextView" />
     <TextView
         android:id="@+id/rpgtextview"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/apgtextview"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="25dp"/>
+        android:layout_below="@id/oppgtextview"
+        android:layout_alignRight="@id/numLosesTextView"/>
     <TextView
-        android:id="@+id/textview3pa"
+        android:id="@+id/apgtextview"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/rpgtextview"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="25dp"/>
+        android:layout_alignRight="@id/numLosesTextView"/>
     <TextView
-        android:id="@+id/textview3pp"
+        android:id="@+id/textview3pm"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="25dp"/>
+        android:layout_below="@id/apgtextview"
+        android:layout_alignRight="@id/numLosesTextView"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -143,6 +129,54 @@
         android:layout_above="@id/radarchart"
         android:layout_centerHorizontal="true"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/ppgtextview"
+        android:layout_alignLeft="@id/numWinsTextView"
+        android:text="Offense Rank"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+        android:textColor="#ffffff"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/oppgtextview"
+        android:layout_alignLeft="@id/numWinsTextView"
+        android:text="Defense Rank"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+        android:textColor="#ffffff"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/rpgtextview"
+        android:layout_alignLeft="@id/numWinsTextView"
+        android:text="Rebounds Rank"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+        android:textColor="#ffffff"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/apgtextview"
+        android:layout_alignLeft="@id/numWinsTextView"
+        android:text="Assists Rank"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+        android:textColor="#ffffff"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/textview3pm"
+        android:layout_alignLeft="@id/numWinsTextView"
+        android:text="3PM Rank"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+        android:textColor="#ffffff"/>
 
     <com.github.mikephil.charting.charts.RadarChart
         android:id="@+id/radarchart"
