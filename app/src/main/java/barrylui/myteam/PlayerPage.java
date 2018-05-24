@@ -1,5 +1,6 @@
 package barrylui.myteam;
 
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -173,7 +174,9 @@ public class PlayerPage extends AppCompatActivity {
         heighttextview.setTextColor(teamcolor);
         agetextview.setTextColor(teamcolor);
         seasonaveragestextview.setTextColor(teamcolor);
-
+        ppgapgrpgtextview.setTextColor(teamcolor);
+        stealsblockstextview.setTextColor(teamcolor);
+        minutesfreethrowsfieldgoalspergame.setTextColor(teamcolor);
 
         TextView playertoolbartextview = (TextView)findViewById(R.id.playertoolbartextview);
         playertoolbartextview.setText(suredBitsFirstName + " " + suredBitsLastName);
@@ -431,10 +434,26 @@ public class PlayerPage extends AppCompatActivity {
 
 
 
+
+
                     RadarDataSet dataset1 = new RadarDataSet(entry1,"Player");
                     dataset1.setColor((teamcolor));
                     dataset1.setDrawFilled(true);
                     dataset1.setFillColor((teamcolor));
+
+                    if (mysportsteamid.equals("BRO") || mysportsteamid.equals("SAS")){
+                        firstNametextview.setTextColor(Color.WHITE);
+                        lastNametextview.setTextColor(Color.WHITE);
+                        jerseyNumbertextview.setTextColor(Color.WHITE);
+                        positiontextview.setTextColor(Color.WHITE);
+                        heighttextview.setTextColor(Color.WHITE);
+                        agetextview.setTextColor(Color.WHITE);
+                        seasonaveragestextview.setTextColor(Color.WHITE);
+                        dataset1.setColor((Color.WHITE));
+                        dataset1.setDrawFilled(true);
+                        dataset1.setFillColor((Color.WHITE));
+                    }
+
                     dataset1.setFillAlpha(180);
                     dataset1.setLineWidth(5f);
                     dataset1.setDrawValues(false);
@@ -447,6 +466,8 @@ public class PlayerPage extends AppCompatActivity {
                     Legend l = radarChart.getLegend();
                     l.setEnabled(false);
 
+
+                    radarChart.getXAxis().setTextColor(Color.WHITE);
                     YAxis yAxis = radarChart.getYAxis();
                     yAxis.resetAxisMaxValue();
                     yAxis.setAxisMaxValue(100);

@@ -136,12 +136,38 @@ public class TeamLandingPage extends AppCompatActivity{
         radarChart = (RadarChart)findViewById(R.id.radarchart);
 
 
-        winstv.setTextColor(getColor(teamcolors));
-        losestv.setTextColor(getColor(teamcolors));
-        dashtv.setTextColor(getColor(teamcolors));
-        teamRoster.setBackgroundColor(getColor(teamcolors));
-        teamRoster.setTextColor(Color.WHITE);
-        infotv.setTextColor(Color.BLACK);
+
+        infotv.setTextColor(Color.WHITE);
+
+        if(teamName.equals("BRO")  || teamName.equals("SAS")){
+            winstv.setTextColor(Color.WHITE);
+            losestv.setTextColor(Color.WHITE);
+            dashtv.setTextColor(Color.WHITE);
+            ppgtv.setTextColor(Color.WHITE);
+            oppgtv.setTextColor(Color.WHITE);
+            apgtv.setTextColor(Color.WHITE);
+            rpgtv.setTextColor(Color.WHITE);
+            tpatv.setTextColor(Color.WHITE);
+            tpptv.setTextColor(Color.WHITE);
+            teamRoster.setTextColor(Color.BLACK);
+            teamRoster.setBackgroundColor(Color.WHITE);
+        }
+        else{
+            winstv.setTextColor(getColor(teamcolors));
+            losestv.setTextColor(getColor(teamcolors));
+            dashtv.setTextColor(getColor(teamcolors));
+            ppgtv.setTextColor(getColor(teamcolors));
+            oppgtv.setTextColor(getColor(teamcolors));
+            apgtv.setTextColor(getColor(teamcolors));
+            rpgtv.setTextColor(getColor(teamcolors));
+            tpatv.setTextColor(getColor(teamcolors));
+            tpptv.setTextColor(getColor(teamcolors));
+            teamRoster.setBackgroundColor(getColor(teamcolors));
+            teamRoster.setTextColor(Color.WHITE);
+
+        }
+
+
         infotv.setText("Loading...");
         teamranktv.setText("Loading...");
 
@@ -370,9 +396,18 @@ public class TeamLandingPage extends AppCompatActivity{
 
                     //Setup radarchart settings and bind radar chart
                     RadarDataSet dataset1 = new RadarDataSet(entry1,"Player");
-                    dataset1.setColor(getColor(teamcolors));
-                    dataset1.setDrawFilled(true);
-                    dataset1.setFillColor(getColor(teamcolors));
+
+                    if(teamName.equals("BRO") || teamName.equals("SAS")){
+                        dataset1.setColor(Color.WHITE);
+                        dataset1.setDrawFilled(true);
+                        dataset1.setFillColor(Color.WHITE);
+                    }
+                    else{
+                        dataset1.setColor(getColor(teamcolors));
+                        dataset1.setDrawFilled(true);
+                        dataset1.setFillColor(getColor(teamcolors));
+                    }
+
                     dataset1.setFillAlpha(180);
                     dataset1.setLineWidth(5f);
                     dataset1.setDrawValues(false);
@@ -387,6 +422,7 @@ public class TeamLandingPage extends AppCompatActivity{
                     radarChart.setDescription("");
                     l.setEnabled(false);
 
+                    radarChart.getXAxis().setTextColor(Color.WHITE);
                     //Max is 30 because there are 30 nba teams. Each stat is ranked against other teams and can be plotted to see how good/bad a team is in a paticular category
                     YAxis yAxis = radarChart.getYAxis();
                     yAxis.resetAxisMaxValue();
