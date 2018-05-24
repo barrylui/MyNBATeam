@@ -138,30 +138,22 @@ public class TeamLandingPage extends AppCompatActivity{
 
 
         infotv.setTextColor(Color.WHITE);
+        winstv.setTextColor(Color.WHITE);
+        losestv.setTextColor(Color.WHITE);
+        dashtv.setTextColor(Color.WHITE);
+        teamranktv.setTextColor(Color.WHITE);
+        ppgtv.setTextColor(Color.WHITE);
+        oppgtv.setTextColor(Color.WHITE);
+        apgtv.setTextColor(Color.WHITE);
+        rpgtv.setTextColor(Color.WHITE);
+        tpatv.setTextColor(Color.WHITE);
+        tpptv.setTextColor(Color.WHITE);
 
         if(teamName.equals("BRO")  || teamName.equals("SAS")){
-            winstv.setTextColor(Color.WHITE);
-            losestv.setTextColor(Color.WHITE);
-            dashtv.setTextColor(Color.WHITE);
-            ppgtv.setTextColor(Color.WHITE);
-            oppgtv.setTextColor(Color.WHITE);
-            apgtv.setTextColor(Color.WHITE);
-            rpgtv.setTextColor(Color.WHITE);
-            tpatv.setTextColor(Color.WHITE);
-            tpptv.setTextColor(Color.WHITE);
             teamRoster.setTextColor(Color.BLACK);
             teamRoster.setBackgroundColor(Color.WHITE);
         }
         else{
-            winstv.setTextColor(getColor(teamcolors));
-            losestv.setTextColor(getColor(teamcolors));
-            dashtv.setTextColor(getColor(teamcolors));
-            ppgtv.setTextColor(getColor(teamcolors));
-            oppgtv.setTextColor(getColor(teamcolors));
-            apgtv.setTextColor(getColor(teamcolors));
-            rpgtv.setTextColor(getColor(teamcolors));
-            tpatv.setTextColor(getColor(teamcolors));
-            tpptv.setTextColor(getColor(teamcolors));
             teamRoster.setBackgroundColor(getColor(teamcolors));
             teamRoster.setTextColor(Color.WHITE);
 
@@ -286,7 +278,6 @@ public class TeamLandingPage extends AppCompatActivity{
                     }
                     standingsRank = "#" + standingsRank + " in the " + conference;
                     teamranktv.setText(standingsRank);
-                    teamranktv.setTextColor(getColor(teamcolors));
 
                     //Get data to bind to radarchart
                     getTeamStatsRankAndBindData();

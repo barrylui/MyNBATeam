@@ -449,6 +449,9 @@ public class PlayerPage extends AppCompatActivity {
                         heighttextview.setTextColor(Color.WHITE);
                         agetextview.setTextColor(Color.WHITE);
                         seasonaveragestextview.setTextColor(Color.WHITE);
+                        ppgapgrpgtextview.setTextColor(Color.WHITE);
+                        minutesfreethrowsfieldgoalspergame.setTextColor(Color.WHITE);
+                        stealsblockstextview.setTextColor(Color.WHITE);
                         dataset1.setColor((Color.WHITE));
                         dataset1.setDrawFilled(true);
                         dataset1.setFillColor((Color.WHITE));
